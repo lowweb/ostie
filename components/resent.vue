@@ -48,6 +48,11 @@ export default {
         overflow-x: scroll;
         margin: 0 auto;
         width: 100%;
+        -ms-overflow-style: none;
+
+    	&::-webkit-scrollbar{
+     		display: none;  
+		}
         
     }
 

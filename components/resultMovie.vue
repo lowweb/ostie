@@ -3,10 +3,12 @@
     <!-- <div v-show="inProgress" class="result__loader loader"><img src="~assets/bars.svg" />пытаемся найти</div>        -->
     <div class="result__count-art">Найдено артистов: {{resultMovieData.resultsCount}}</div>
     <div class="result__block" v-for="resRow in resultMovieData.results">
-        <div class="result__block-artist">{{resRow.artist}} можно услышать в этих фильмах<span></span></div>
-        <div v-if="resRow.artistData.length == 0">У данного артиста нет саундтрэков к фильмам по выбранной композиции
-            <div><a class="link link--brd" @click.prevent="searchAll(resRow.artist,'')">найти фильмы по данному исполнителю</a></div>
+        <div v-if="!searchByArtist">{{songName}}</div>
+        <div v-if="resRow.artistData.length > 0" class="result__block-artist">{{resRow.artist}} можно услышать в этих фильмах<span></span></div>
+        <div class="result__block-info" v-if="resRow.artistData.length == 0">У {{resRow.artist}} нет саундтрека по выбранной композиции. 
+            <div>Попробуйте <a class="link link--brd" @click.prevent="searchAll(resRow.artist,'')">найти фильмы по данному исполнителю</a></div>
         </div>
+
         <ol class="result__list" :class="[Object.keys(resRow.artistData).length > 10 ? 'result__list--wspoiler' : '']">
         <li  class="result__list-itm" v-for="(artRow,index) in resRow.artistData" @key="index">
             <!-- <img class="movie__poster" :src="artRow.mPoster"> -->
@@ -31,7 +33,12 @@ computed: {
     resultMovieData() {
         return this.$store.state.resultmovie.data
     },
-    
+    searchByArtist () {
+        return this.$store.state.search.kindSearchByArtist
+    },
+    songName() {
+       return this.$store.state.search.whatSearch['song']
+    },
     // inProgress() {
     //    return this.$store.state.resultmovie.inProgress
     // },
@@ -138,12 +145,13 @@ methods: {
         font-size: 18px;
         line-height: 24px;
         position: relative;
+        border-bottom: 1px solid #F0F1F2;
 
         
 
-        &:nth-child(2n) {
-            background-color: #F0F1F2;
-        }
+        // &:nth-child(2n) {
+        //     background-color: #F0F1F2;
+        // }
 
         &:hover, &:focus {
             background-color: #E4F3FE;
@@ -194,6 +202,10 @@ methods: {
                 // background-color: #ffda28;
                 padding: 0px 5px;
             }
+        }
+        &-info {
+            font-size: 32px;
+            line-height: 40px;
         }
     }
 }

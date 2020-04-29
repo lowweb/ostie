@@ -1,12 +1,12 @@
 module.exports = {
   apps : [
     {
-      name: "nuxt-dev",
+      name: "ostie-dev",
       script: "npm",
       args: "run dev"
     },
     {
-      name: "nuxt-prod",
+      name: "ostie-prod",
       script: "npm",
       args: "run start"
     }
