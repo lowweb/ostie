@@ -67,7 +67,7 @@ export const actions = {
             'entity': (!payload.byArtist) ? 'musicTrack' : 'musicArtist',
             // 'attribute': 'artistTerm',
             'attribute': (!payload.byArtist) ? 'songTerm' : 'artistTerm',
-            'limit': '500'
+            'limit': '50'
             }
          })
         .then((res) => {

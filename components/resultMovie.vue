@@ -2,11 +2,25 @@
   <div class="result" v-show="isShownResBlock">
     <!-- <div v-show="inProgress" class="result__loader loader"><img src="~assets/bars.svg" />пытаемся найти</div>        -->
     <div class="result__count-art">Найдено артистов: {{resultMovieData.resultsCount}}</div>
+    <div class="result__block" v-if="resultMovieData.resultsCount == 0 && searchByArtist">
+        <div class="result__block-info">
+            Кажется, нет ни одного фильма с таким саундтреком... Попробуйте <a class="link link--brd" @click.prevent="switchTosong">поискать по названию трека</a>
+        </div>
+    </div>
+    <div class="result__block" v-if="resultMovieData.resultsCount == 0 && !searchByArtist">
+        <div class="result__block-info">
+            Не удалось найти ни одного саундтрека к фильму... Попробуйте <a class="link link--brd" @click.prevent="newSongSearch">поискать по другому треку</a>
+        </div>
+    </div>
+    
     <div class="result__block" v-for="resRow in resultMovieData.results">
-        <div v-if="!searchByArtist">{{songName}}</div>
-        <div v-if="resRow.artistData.length > 0" class="result__block-artist">{{resRow.artist}} можно услышать в этих фильмах<span></span></div>
+        
+        <div v-if="resRow.artistData.length > 0 && searchByArtist" class="result__block-artist">{{resRow.artist}} можно услышать в этих фильмах<span></span></div>
+        <div v-if="resRow.artistData.length > 0 && !searchByArtist" class="result__block-artist">{{resRow.artist}} {{songName}} можно услышать в этих фильмах<span></span></div>
+
+        <!-- <div v-if="resRow.artistData.length > 0" class="result__block-artist">{{resRow.artist}} можно услышать в этих фильмах<span></span></div> -->
         <div class="result__block-info" v-if="resRow.artistData.length == 0">У {{resRow.artist}} нет саундтрека по выбранной композиции. 
-            <div>Попробуйте <a class="link link--brd" @click.prevent="searchAll(resRow.artist,'')">найти фильмы по данному исполнителю</a></div>
+            <div>Попробуйте найти фильмы <a class="link link--brd" @click.prevent="searchAll(resRow.artist,'')">по исполнителю</a></div>
         </div>
 
         <ol class="result__list" :class="[Object.keys(resRow.artistData).length > 10 ? 'result__list--wspoiler' : '']">
@@ -53,6 +67,23 @@ computed: {
     }
 },
 methods: {
+    newSongSearch() {
+        this.$store.commit('search/change','')
+        
+    },
+    switchTosong() {
+        this.$store.commit('search/change','')   
+        this.$store.commit('resultmovie/emptyData')
+        //переключаем toogle в положение артиста
+        this.$store.commit('toogleswitch/change', true)
+        this.$store.commit('search/changeKindSearchByArtist',false)
+        //loader меняем
+        this.$store.commit('search/changeLoaderIcn')
+
+        //смарт поиск vuex поиск по артисту в true
+        this.$store.commit('smartmusic/changeByArtist',false)
+    
+    },
     searchAll(artist,song) {   
         this.$store.commit('search/change',artist)    
         //очистить предыдущий результат выдачи
@@ -82,7 +113,7 @@ methods: {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .result {
     position: relative;
     min-height: 30px;
@@ -131,13 +162,12 @@ methods: {
         font-size: 18px;
         line-height: 24px;
         color: #051923;
-        width: 48px;
+        width: 32px;
         position: absolute;
         left: 16px;
     }
     &__list-itm {
         display: flex;
-        height: 56px;
         align-items: center;
         font-family: 'Roboto', sans-serif;
         font-style: normal;
@@ -146,12 +176,6 @@ methods: {
         line-height: 24px;
         position: relative;
         border-bottom: 1px solid #F0F1F2;
-
-        
-
-        // &:nth-child(2n) {
-        //     background-color: #F0F1F2;
-        // }
 
         &:hover, &:focus {
             background-color: #E4F3FE;
@@ -169,9 +193,9 @@ methods: {
         & a {
             height: 100%;
             width: 100%;
+            padding: 16px 64px;
             display: flex;
             align-items: center;
-            padding-left: 64px;
         }
     }
     &__count-art {
@@ -186,7 +210,7 @@ methods: {
     &__block {
             margin-bottom: 56px;
         &:last-child{
-            margin-bottom: 200px;
+            margin-bottom: 128px;
         }
 
         &-artist{
@@ -196,25 +220,60 @@ methods: {
             font-size: 32px;
             line-height: 40px;
             margin-bottom: 20px;
-            
-            & > span {
-                // font-weight: 600;
-                // background-color: #ffda28;
-                padding: 0px 5px;
-            }
+
         }
         &-info {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-style: normal;
+            font-weight: normal;    
             font-size: 32px;
             line-height: 40px;
+            color: #403F4C;
         }
     }
 }
 
-@media screen and (max-width: 600px) {
- .result {
-    &__block {
-        padding: 20px 15px; 
+@media screen and (max-width: 680px) {
+.result {
+
+    &__list {
+        &--wspoiler {
+            height: 560px;
+            margin-bottom: 24px;
+        }
     }
- }
+    &__list-index {
+        left: 8px;
+        top: 16px;
+    }
+    &__list-itm {
+        &:hover, &:focus {
+            &:before {
+                right: 8px;
+                top: 16px;
+            }
+        }
+        & a {
+
+            padding: 16px 40px 16px 64px;
+        }
+    }
+
+    &__block {
+            margin-bottom: 36px;
+        &:last-child{
+            margin-bottom: 66px;
+        }
+
+        &-artist{
+            font-size: 20px;
+            line-height: 24px;
+            margin-bottom: 8px;
+        }
+        &-info {
+            //ждем макета
+        }
+    }
+}
 }
 </style>

@@ -53,9 +53,11 @@ export default {
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {
-    baseURL: 'http://82.162.148.22/api'
-  },
+ axios: {
+    baseURL:  process.env.NODE_ENV === 'production'
+    ? '82.162.148.22/api'
+    : 'http://localhost:5000/api'
+},
   /*
   ** Build configuration
   */

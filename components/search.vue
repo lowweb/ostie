@@ -142,6 +142,7 @@ export default {
     }, 
     
   methods: {
+
     toogleSearchType () {
         this.kindSearchByArtist=!this.kindSearchByArtist
         this.$store.commit('search/changeLoaderIcn')

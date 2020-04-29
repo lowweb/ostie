@@ -11,7 +11,7 @@
             </div>
         </div>
         <div v-if="!getByArtist" class="smart-music__itm-audio audio" :class="{'audio--play':selectedAudio!=index,'audio--pause': index == selectedAudio}" @click="clickAudioBtn($event.target,index)"><audio :src="itm.previewUrl"></audio></div>
-        <div class="smart-music__itunes-ln"><a :href="(getByArtist) ? itm.artistLinkUrl : itm.artistViewUrl" class="link" target="_blank"></a></div>
+        <div v-if="!getByArtist" class="smart-music__itunes-ln"><a :href="(getByArtist) ? itm.artistLinkUrl : itm.artistViewUrl" class="link" target="_blank"></a></div>
     </li>
  
 </ul>

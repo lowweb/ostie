@@ -161,7 +161,11 @@ export default {
 
 @media screen and (max-width: 800px) {
 .resent {
-    padding: 0px 24px; 
+    // padding: 0px 24px; 
+    &__cap {
+        margin-left: 24px;
+        width: auto;
+    }
 
 }
 }
@@ -173,6 +177,7 @@ export default {
         font-size: 20px;
         line-height: 24px;
         margin-bottom: 32px;
+        margin-left: 24px;
     }
     &__item {
         margin-right: 16px;
