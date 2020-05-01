@@ -21,7 +21,7 @@ html {
   height: 100%;
 }
 body {
-  height: 100%;
+  // height: 100%;
 }
 
 .link {
@@ -43,7 +43,7 @@ li{
 }
 
 #__nuxt, #__layout{
-  height: 100%; 
+  // height: 100%; 
 }
 
 

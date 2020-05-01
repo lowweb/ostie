@@ -51,7 +51,7 @@ main{
   display: flex;
   flex-direction: column;
   padding-top: 80px;
-  height: 100%;
+  min-height: 100vh;
 }
 .container {
   max-width: 744px;

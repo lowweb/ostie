@@ -53,8 +53,8 @@
 .foo {
     padding: 24px 0;
     flex-direction: column;
-    // height: 100%;
-    flex: 1 0 auto; 
+    flex: 0 0 100%; 
+    height: 100%;
     
     &__copyr{
         margin-left: 0;
