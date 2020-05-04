@@ -55,7 +55,7 @@ export default {
   */
  axios: {
     baseURL:  process.env.NODE_ENV === 'production'
-    ? '82.162.148.22/api'
+    ? 'http://82.162.148.22/api'
     : 'http://localhost:5000/api'
 },
   /*
