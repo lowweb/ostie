@@ -264,6 +264,7 @@ export default {
                 color: #051923;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                border-radius: 0;
                 
                 &::placeholder {
                     color: #999999;

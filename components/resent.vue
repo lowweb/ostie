@@ -3,7 +3,7 @@
         <div class="resent__cap">Недавно искали</div>
         <ul class="resent__items">
             <li v-for="item of resentList" :key="item.id" class="resent__item">
-                <div class="resent__item-img"><img :src="item.picUrl" alt="img"></div>
+                <a class="resent__item-img" href=""><img :src="item.picUrl" alt="poster-img"></a>
                 <div class="resent__item-film">{{item.film}}</div>
                 <div class="resent__item-song">{{item.song}}</div>
                 <div class="resent__item-artist">{{item.artist}}</div>
@@ -105,7 +105,7 @@ export default {
                 transform: translate(0, -50%);
                 height: 135%;
                 width: auto;
-                transition: height 1s, width 1s;
+                transition: height 0.3s, width 0.3s;
                 
             }
             &:hover {
@@ -113,7 +113,7 @@ export default {
             }
             &:hover img {
                 height: 165%;
-                transition: height 1s, width 1s;
+                transition: height 0.3s, width 0.3s;
             }
 
             &:after {
@@ -134,7 +134,6 @@ export default {
             font-size: 24px;
             line-height: 32px;
             color: #FFFFFF;
-            cursor: pointer;
             position: absolute;
             left: 16px;
             top: 176px;
