@@ -58,7 +58,7 @@ export const state = () => ({
 
 export const actions = {
     async makeRequest({commit},payload) {
-      await this.$axios.get('https://itunes.apple.com/search?', {
+      await this.$axios.get('/apiItunes/', {
         params: {
             'term' : payload.searchStr,
             'cors': 'no-cors',

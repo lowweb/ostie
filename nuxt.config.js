@@ -47,16 +47,19 @@ export default {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
+    '@nuxtjs/axios'
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
  axios: {
-    baseURL:  process.env.NODE_ENV === 'production'
-    ? 'api'
-    : 'http://localhost:5000/api'
+    baseURL:  process.env.NODE_ENV === 'production'? 'api' : 'http://localhost:5000/api',
+    proxy: true // Can be also an object with default options
+},
+
+proxy: {
+  '/apiItunes/': { target: 'https://itunes.apple.com/search?', pathRewrite: {'^/apiItunes/': ''} }
 },
   /*
   ** Build configuration

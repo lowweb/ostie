@@ -152,6 +152,8 @@ export default {
             this.textInput = ''
             this.$store.commit('search/statusResults', false)
             this.$store.commit('smartmusic/clearResult')
+            //очистить предыдущий результат выдачи
+        this.$store.commit('resultmovie/emptyData')
             // this.$store.commit('resultmovie/emptyData')
         }
     }, 

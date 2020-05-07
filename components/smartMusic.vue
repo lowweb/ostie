@@ -130,9 +130,11 @@ methods: {
         params: {
             'id' : artistId,
             'entity': 'song',
-            'limit': 500
+            'limit': 50
             }
-         })
+         }
+        
+        )
         .then((res) => {
           if (res.status === 200) {
             // console.log(res.data.results) 
