@@ -55,12 +55,12 @@ export default {
   */
  axios: {
     baseURL:  process.env.NODE_ENV === 'production'? 'api' : 'http://localhost:5000/api',
-    proxy: true // Can be also an object with default options
+    // proxy: true // Can be also an object with default options
 },
 
-proxy: {
-  '/apiItunes/': { target: 'https://itunes.apple.com/search?', pathRewrite: {'^/apiItunes/': ''} }
-},
+// proxy: {
+//   '/apiItunes/': { target: 'https://itunes.apple.com/search?', pathRewrite: {'^/apiItunes/': ''} }
+// },
   /*
   ** Build configuration
   */

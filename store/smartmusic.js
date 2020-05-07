@@ -58,7 +58,7 @@ export const state = () => ({
 
 export const actions = {
     async makeRequest({commit},payload) {
-      await this.$axios.get('/apiItunes/', {
+      await this.$axios.get('https://itunes.apple.com/search?', {
         params: {
             'term' : payload.searchStr,
             'cors': 'no-cors',
@@ -70,6 +70,7 @@ export const actions = {
             'limit': '50'
             }
          })
+
         .then((res) => {
           if (res.status === 200) {
             // console.log(res.data.results) 
