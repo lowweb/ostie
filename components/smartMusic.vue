@@ -14,7 +14,7 @@
         <!-- </div> -->
         
         <div v-if="!getByArtist" class="smart-music__itm-audio audio" :class="{'audio--play':selectedAudio!=index,'audio--pause': index == selectedAudio}" @click.stop="clickAudioBtn($event.target,index)"><audio :src="itm.previewUrl"></audio></div>
-        <div class="smart-music__itunes-ln"><a  @click.stop="" class="link" :href="(getByArtist) ? itm.artistLinkUrl : itm.artistViewUrl" target="_blank"></a></div>
+        <div class="smart-music__itunes-ln" :class="{'smart-music__itunes-ln--track':!getByArtist}"><a  @click.stop="" class="link" :href="(getByArtist) ? itm.artistLinkUrl : itm.artistViewUrl" target="_blank"></a></div>
         <a class="link" v-if="getByArtist" @click.stop="selectSong(itm.artistId, $event)" >></a>
     </li>
  </ul>
@@ -341,10 +341,13 @@ methods: {
 
 
     &__itunes-ln{
-            width: 100%;
-            flex: 1 0 auto;
-            padding-left: 52px;
-            margin-top: 8px;
+            flex: 0 0 auto;
+            &--track {
+                width: 100%;
+                flex: 1 0 auto;
+                padding-left: 52px;
+                margin-top: 8px;
+            }
         & > a {
             content: url('~assets/icn-itunes-m.svg');
             width: 76px;

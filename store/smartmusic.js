@@ -58,26 +58,38 @@ export const state = () => ({
 
 export const actions = {
     async makeRequest({commit},payload) {
-      await this.$axios.get('https://itunes.apple.com/search?', {
-        params: {
-            'term' : payload.searchStr,
-            'cors': 'no-cors',
-            'media': 'music',
-            // 'entity': 'musicArtist',
-            'entity': (!payload.byArtist) ? 'musicTrack' : 'musicArtist',
-            // 'attribute': 'artistTerm',
-            'attribute': (!payload.byArtist) ? 'songTerm' : 'artistTerm',
-            'limit': '50'
-            }
-         })
-
-        .then((res) => {
-          if (res.status === 200) {
-            // console.log(res.data.results) 
+      await this.$axios.get(`https://itunes.apple.com/search?term=${payload.searchStr}&entity=${(!payload.byArtist) ? 'musicTrack' : 'musicArtist'}&attribute=${(!payload.byArtist) ? 'songTerm' : 'artistTerm'}&limit=20&offset=${this.page * 10}`)
+          .then((res) => {
+            // if (increase) {
+            //   this.page++
+            // } else {
+            //   this.page--
+            // }
+            console.log(res.data.results) 
             // res.data.results = {'byArtist': payload.byArtist,'data': res.data.results}
             commit('fillResult', res.data.results)
-          }
-        })
+            // this.dataSearch = response.data.results.sort((a, b) => a.releaseDate > b.releaseDate ? -1 : 1)
+          })
+      // await this.$axios.get('https://itunes.apple.com/search?', {
+      //   params: {
+      //       'term' : payload.searchStr,
+      //       'cors': 'no-cors',
+      //       'media': 'music',
+      //       // 'entity': 'musicArtist',
+      //       'entity': (!payload.byArtist) ? 'musicTrack' : 'musicArtist',
+      //       // 'attribute': 'artistTerm',
+      //       'attribute': (!payload.byArtist) ? 'songTerm' : 'artistTerm',
+      //       'limit': '50'
+      //       }
+      //    })
+
+      //   .then((res) => {
+      //     if (res.status === 200) {
+      //       // console.log(res.data.results) 
+      //       // res.data.results = {'byArtist': payload.byArtist,'data': res.data.results}
+      //       commit('fillResult', res.data.results)
+      //     }
+      //   })
         .catch(e => {
             console.log(e)
         })
