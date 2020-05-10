@@ -3,11 +3,13 @@
         <div class="foo__copyr">Ostie © 2015–2020</div>
         <a href="" class="foo__about link" @click.prevent="showInfo">О проекте</a> 
         <a href="" class="foo__social link">Ostie в Telegram</a>
-        <div class="foo__about-text" :class="{'foo__about-text--shown': isShowInfo }">
+        <transition name="showninfo">
+        <div class="foo__about-text" v-if="isShowInfo">
             <div class="foo__about-text-cap">Краткая информация о проекте</div>
             <div>Ostie.org помогает найти фильм по его саундтреку.
 Если вам хочется узнать, в каком фильме звучала та самая песня или в создании саундтрека к какому фильму принимала участие ваша любимая группа или исполнитель – Ostie легко и просто ответит на эти вопросы.</div>
         </div>
+        </transition>
     </footer>
 </template>
 <script>
@@ -52,12 +54,12 @@ export default {
 
     // transition: max-height .5s, padding .5s;
     &__about-text {
-
+        padding: 48px 0 40px 0;
         margin: 0 auto;
         max-width: 744px;
-        height: 0;
+        // height: 0;
         overflow: auto;
-        padding: 0;
+        // padding: 0;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -120,6 +122,17 @@ export default {
         }
 
     }
+}
+
+.showninfo-enter-active {
+//   transition: opacity .5s;
+transition: height .2s, padding .5s, opacity .8s;
+ 
+}
+.showninfo-enter/* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+padding: 0;
+  height: 0;
 }
 
 @media screen and (max-width: 820px) {

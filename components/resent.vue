@@ -1,7 +1,7 @@
 <template>
-    <div class="resent" v-show="isShownResentBlock">
+    <div class="resent" v-show="isShownResentBlock" >
         <div class="resent__cap">Недавно искали</div>
-        <ul class="resent__items">
+        <ul class="resent__items" ref="resentItms" @scroll="scrollItm">
             <li v-for="item of resentList" :key="item.id" class="resent__item">
                 <a class="resent__item-img" href=""><img :src="item.picUrl" alt="poster-img"></a>
                 <div class="resent__item-film">{{item.film}}</div>
@@ -31,6 +31,24 @@ export default {
     
         }
     },
+    methods: {
+        scrollItm(e){
+            console.log('ssss1')
+            let { scrollLeft, clientWidth, scrollWidth } = e.target;
+		    if (scrollLeft + clientWidth >= scrollWidth) {
+                console.log('ee')
+                this.$refs.resentItms.scrollTo(0,10)
+            }
+        }
+    },
+    mounted () {
+        console.log(this.$el.children[1].children.length)
+        var lastItm = 
+        console.log(this.$refs.resentItms)
+        this.$refs.resentItms.scrollLeft = 50
+        // this.scrollRight = 10
+        // document.getElementById('scrolling_div').scrollTop = topPos;
+    }
 
 }
 </script>
