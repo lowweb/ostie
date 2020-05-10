@@ -1,7 +1,7 @@
 <template>
   <div class="smart-music" @scroll="loadMore">
     <ul class="smart-music__artist"  :class="{'smart-music__artist--hide': seeSongByArtist}"@scroll="loadMore">
-        <div class="smart-music__back"></div>
+    <div v-if="Object.keys(smartMusicData)==0" class="smart-music__null-res">Ничего не можем найти... вводите правильно?</div>
     <li class="smart-music__itm" @click="selectItem(index)" v-for="(itm, index) in smartMusicData" :key="index" :value="index" :tabindex="index">
         <!-- <div class="smart-music__itm-touch" @click="selectItem(index)"> -->
             <div v-if="!getByArtist" class="smart-music__itm-img"><img :src="itm.artworkUrl100" alt=""></div>
@@ -328,6 +328,17 @@ methods: {
             align-items: center;
             margin-left: 16px;
         }
+    &__null-res{
+        font-family: 'Roboto', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 24px;
+        color: #828C91;
+        margin-top: 26px;
+        margin-left: 16px;
+        
+    }    
 }
 
 
