@@ -14,7 +14,7 @@ export const state = () => ({
 
   export const mutations = {
     change (state,text) {
-      state.inputText=text
+      state.inputText=text.toString().replace(/\s+/g, '')
     },
     statusResults(state, value) {
       state.isReturnResults = value

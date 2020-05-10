@@ -1,6 +1,6 @@
 <template>
-  <div class="smart-music">
-    <ul class="smart-music__artist">
+  <div class="smart-music" @scroll="loadMore">
+    <ul class="smart-music__artist"  :class="{'smart-music__artist--hide': seeSongByArtist}"@scroll="loadMore">
         <div class="smart-music__back"></div>
     <li class="smart-music__itm" @click="selectItem(index)" v-for="(itm, index) in smartMusicData" :key="index" :value="index" :tabindex="index">
         <!-- <div class="smart-music__itm-touch" @click="selectItem(index)"> -->
@@ -11,21 +11,28 @@
                 <span v-if="!getByArtist"> - </span>
                 <span v-if="!getByArtist" class="smart-music__itm-song" v-html="itm.trackName"></span>
             </div>
+            
         <!-- </div> -->
         
         <div v-if="!getByArtist" class="smart-music__itm-audio audio" :class="{'audio--play':selectedAudio!=index,'audio--pause': index == selectedAudio}" @click.stop="clickAudioBtn($event.target,index)"><audio :src="itm.previewUrl"></audio></div>
         <div class="smart-music__itunes-ln" :class="{'smart-music__itunes-ln--track':!getByArtist}"><a  @click.stop="" class="link" :href="(getByArtist) ? itm.artistLinkUrl : itm.artistViewUrl" target="_blank"></a></div>
-        <a class="link" v-if="getByArtist" @click.stop="selectSong(itm.artistId, $event)" >></a>
+        <a class="smart-music__arrow link" v-if="getByArtist" @click.stop="seeSongFromArtist(itm.artistId, $event)" >
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+             <path  d="M9.5 7L15 12.5L9.5 18" stroke="#1C9CF7" stroke-width="3"/>
+             </svg>
+            </a>
     </li>
  </ul>
  <ul class="smart-music__artist-song">
-    <li class="smart-music__itm"  @click="selectItemArtistSong(index)" v-for="(itm, index) in songByArtist" :key="index" :value="index" :tabindex="index">
-        
+    <div class="smart-music__back-header"><a class="smart-music__arrow link" @click.stop="backToArtist($event)" >
+        <svg transform="rotate(180)" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path  d="M9.5 7L15 12.5L9.5 18" stroke="#1C9CF7" stroke-width="3"/>
+        </svg>
+        </a>
+    </div>
+    <li class="smart-music__itm"  @click="selectItemArtistSong(index)" v-for="(itm, index) in getSearchResultArtistSongs" :key="index" :value="index" :tabindex="index">       
         <div class="smart-music__itm-text">
-            <a class="link" v-if="index==0" @click.stop="backToArtist($event)" ><</a>
-                <!-- <span class="smart-music__itm-artist" v-html="itm.artistName"></span>
-                <span > - </span> -->
-                <span  class="smart-music__itm-song" v-html="itm.trackName"></span>
+                <span  class="smart-music__itm-song">{{itm.trackName}}</span>
             </div>
     </li> 
  </ul>
@@ -43,12 +50,15 @@ export default {
         previosAudioEl: undefined,
         previosAudioIndex: undefined,
         isAudioPlay: false,
-        songByArtist: []
+        // songByArtist: [],
+        seeSongByArtist: false,
+        artistId: undefined
     }),
 computed: {
     ...mapGetters({
       getItemByIndex: 'smartmusic/getItemByIndex',
-      getByArtist: 'smartmusic/getByArtist'
+      getByArtist: 'smartmusic/getByArtist',
+      getSearchResultArtistSongs: 'smartmusic/getSearchResultArtistSongs'
     }),
     smartMusicData() {
         // highlight(this.$store.state.smartmusic.searchResult,this.$store.state.search.whatSearch)
@@ -91,9 +101,9 @@ methods: {
 
     },
     selectItemArtistSong(index) {
-        
-         let selectItemName = this.songByArtist[index]['artistName']
-        let selectItemSong = this.songByArtist[index]['trackName']
+    
+         let selectItemName = this.getSearchResultArtistSongs[index]['artistName']
+        let selectItemSong = this.getSearchResultArtistSongs[index]['trackName']
        
         //переназначили input на исполнителя, песня
         if(selectItemSong == undefined) {
@@ -121,31 +131,17 @@ methods: {
         
     },
     backToArtist(event){
-        event.target.parentElement.parentElement.parentElement.parentElement.querySelector('.smart-music__artist').classList.toggle("smart-music__artist--hide")
+        this.seeSongByArtist=false
+        // event.target.parentElement.parentElement.parentElement.parentElement.querySelector('.smart-music__artist').classList.toggle("smart-music__artist--hide")
     },
-    selectSong (artistId, event) {
-        event.target.parentElement.parentElement.classList.toggle("smart-music__artist--hide")
-        console.log (event.target.parentElement)
-        this.$axios.get('https://itunes.apple.com/lookup?', {
-        params: {
-            'id' : artistId,
-            'entity': 'song',
-            'limit': 50
-            }
-         }
-        
-        )
-        .then((res) => {
-          if (res.status === 200) {
-            // console.log(res.data.results) 
-            // res.data.results = {'byArtist': payload.byArtist,'data': res.data.results}
-            this.songByArtist = res.data.results
-          }
-        })
-        .catch(e => {
-            console.log(e)
-        })
+    seeSongFromArtist (artistId, event) {
+        this.seeSongByArtist=true
+        // event.target.parentElement.parentElement.classList.toggle("smart-music__artist--hide")
+        //console.log (event.target.parentElement)
+       this.$store.dispatch('smartmusic/makeRequestArtistSongs',{ 'artistId': artistId})
+       this.artistId=artistId  
     },
+
     clickAudioBtn(el,index){
         //если аудио не играет
         if (this.isAudioPlay == false)
@@ -178,6 +174,27 @@ methods: {
                   this.isAudioPlay = false 
                }   
            }    
+    },
+    loadMore(e) {
+        // console.log('ssss')
+        if(!this.seeSongByArtist){
+            console.log('ssss1')
+            let { scrollTop, clientHeight, scrollHeight } = e.target;
+		    if (scrollTop + clientHeight >= scrollHeight) {
+                this.$store.dispatch('smartmusic/makeLazyRequest',{ 'searchStr': this.$store.state.search.inputText, 'byArtist': this.$store.state.search.kindSearchByArtist})    
+            }
+        }
+        else {
+             console.log('ssss2')
+            let { scrollTop, clientHeight, scrollHeight } = e.target;
+		    if (scrollTop + clientHeight >= scrollHeight) {
+                 console.log('ll')
+            this.$store.dispatch('smartmusic/makeLazyRequestArtistSongs',{ 'artistId': this.artistId})  
+            }
+
+        }
+
+
     }
 
 }
@@ -300,6 +317,14 @@ methods: {
         margin-right: 40px;
     }
 
+    &__back-header{
+        padding: 16px;
+
+    }
+    &__arrow {
+            display: flex;
+            align-items: center;
+        }
 }
 
 

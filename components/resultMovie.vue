@@ -23,7 +23,7 @@
             <div>Попробуйте найти фильмы <a class="link link--brd" @click.prevent="searchAll(resRow.artist,'')">по исполнителю</a></div>
         </div>
 
-        <ol class="result__list" :class="[Object.keys(resRow.artistData).length > 10 ? 'result__list--wspoiler' : '']">
+        <ol class="result__list" :class="[Object.keys(resRow.artistData).length > 10 & !isMobile ? 'result__list--wspoiler' : '']">
         <li  class="result__list-itm" v-for="(artRow,index) in resRow.artistData" @key="index">
             <!-- <img class="movie__poster" :src="artRow.mPoster"> -->
             <span class="result__list-index">{{index + 1}}</span>
@@ -64,6 +64,11 @@ computed: {
             return true
         else
             return false
+    },
+    isMobile() {
+         if( screen.width <= 680 ) {
+                    return true;
+                }
     }
 },
 methods: {
@@ -140,7 +145,7 @@ methods: {
         
 
         &--wspoiler {
-            height: 560px;
+            height: 570px;
             overflow: hidden;
             margin-bottom: 24px;
 
@@ -237,10 +242,10 @@ methods: {
 .result {
 
     &__list {
-        &--wspoiler {
-            height: 560px;
-            margin-bottom: 24px;
-        }
+        // &--wspoiler {
+        //     height: 560px;
+        //     margin-bottom: 24px;
+        // }
     }
     &__list-index {
         left: 8px;

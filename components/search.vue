@@ -105,7 +105,7 @@ export default {
         return (!this.kindSearchByArtist) ? 'Read My Mind' : ''
     },
     throttledGet() {
-            let DELAY = 2000;
+            let DELAY = 1000;
             return throttle(this.getMusicData, DELAY);      
         },
     //model для input     
@@ -116,7 +116,7 @@ export default {
         set(value) {
             // console.log(value.length)
             this.$store.commit('search/change',value)
-            if (value.length > 2) {
+            if (value.length > 1) {
                 this.popupVisible = true
                 this.throttledGet()
             }
@@ -159,7 +159,7 @@ export default {
     }, 
     getMusicData() {
         // console.log(this.kindSearchByArtist)
-        this.$store.dispatch('smartmusic/makeRequest',{ 'searchStr': this.textInput.toString().replace(/\s+/g, '+'), 'byArtist': this.kindSearchByArtist})
+        this.$store.dispatch('smartmusic/makeRequest',{ 'searchStr': this.textInput, 'byArtist': this.kindSearchByArtist})
         // this.$store.dispatch('smartmusic/makeFakeReq',this.textInput)   
     },
     closePopup () {

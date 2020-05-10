@@ -19,6 +19,7 @@ export default {
 }
 html {
   height: 100%;
+  scroll-behavior: smooth;
 }
 body {
   // height: 100%;
@@ -32,6 +33,11 @@ body {
     &:hover {
       color: #FF2B67;
       border: none;
+
+      & svg path {
+        stroke: #FF2B67;
+        // fill: #FF2B67;
+      }
     }
 }
 

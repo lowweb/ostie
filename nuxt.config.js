@@ -13,12 +13,22 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
+      { property: "og:type", content: "website"},
+      { property: "og:site_name", content: "Ostie.ru"},
+      { property: "og:title", content: "Ostie"},
+      { property: "og:description", content: "Ищем саундрэки и фильмы к ним"},
+      { property: "og:url", content: "http://ostie.ru"},
+      { property: "og:locale", content: "ru_RU"},
+      { property: "og:image", content: "/img-social-share.png"},
+      { property: "og:image:width", content: "1024"},
+      { property: "og:image:height", content: "512"}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&family=Roboto:wght@300;400;500;700&display=swap&subset=cyrillic'}
     ]
+    
   },
   /*
   ** Customize the progress-bar color
