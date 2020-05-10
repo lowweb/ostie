@@ -8,6 +8,11 @@
             
             <div class="smart-music__itm-text">
                 <span class="smart-music__itm-artist" v-html="itm.artistName"></span>
+                <a class="smart-music__arrow link" v-if="getByArtist" @click.stop="seeSongFromArtist(itm.artistId, $event)" >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path  d="M9.5 7L15 12.5L9.5 18" stroke="#1C9CF7" stroke-width="3"/>
+                    </svg>
+                </a>
                 <span v-if="!getByArtist"> - </span>
                 <span v-if="!getByArtist" class="smart-music__itm-song" v-html="itm.trackName"></span>
             </div>
@@ -16,11 +21,7 @@
         
         <div v-if="!getByArtist" class="smart-music__itm-audio audio" :class="{'audio--play':selectedAudio!=index,'audio--pause': index == selectedAudio}" @click.stop="clickAudioBtn($event.target,index)"><audio :src="itm.previewUrl"></audio></div>
         <div class="smart-music__itunes-ln" :class="{'smart-music__itunes-ln--track':!getByArtist}"><a  @click.stop="" class="link" :href="(getByArtist) ? itm.artistLinkUrl : itm.artistViewUrl" target="_blank"></a></div>
-        <a class="smart-music__arrow link" v-if="getByArtist" @click.stop="seeSongFromArtist(itm.artistId, $event)" >
-             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-             <path  d="M9.5 7L15 12.5L9.5 18" stroke="#1C9CF7" stroke-width="3"/>
-             </svg>
-            </a>
+        
     </li>
  </ul>
  <ul class="smart-music__artist-song">
@@ -262,7 +263,7 @@ methods: {
         // padding: 16px;
     }
     &__itm-text {
-        // display: flex;
+        display: flex;
         // flex-direction: column;
         margin: auto 0;
         flex: 1 1 auto;
@@ -319,11 +320,13 @@ methods: {
 
     &__back-header{
         padding: 16px;
+        padding-left: 0px;
 
     }
     &__arrow {
             display: flex;
             align-items: center;
+            margin-left: 16px;
         }
 }
 

@@ -268,6 +268,7 @@ methods: {
             margin-bottom: 36px;
         &:last-child{
             margin-bottom: 66px;
+
         }
 
         &-artist{
@@ -276,7 +277,8 @@ methods: {
             margin-bottom: 8px;
         }
         &-info {
-            //ждем макета
+            font-size: 20px;
+            line-height: 24px;
         }
     }
 }
