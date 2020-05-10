@@ -67,11 +67,11 @@ export default {
         }
     }, 
     loaderImg(){
-        return this.$store.state.search.loaderIcn
-        // if (this.$store.state.search.kindSearchByArtist) 
-        //     return require(`../assets/bars.svg`) 
-        // else
-        //     return require(`../assets/bars--pink.svg`) 
+        // return this.$store.state.search.loaderIcn
+        if (this.$store.state.search.kindSearchByArtist) 
+            return require(`../assets/bars.svg`) 
+        else
+            return require(`../assets/bars--pink.svg`) 
     }, 
     enterImgColor() {
         if (this.isInputFocused) 
