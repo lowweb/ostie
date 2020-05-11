@@ -85,7 +85,7 @@ export default {
         -ms-overflow-style: none;
 
     	&::-webkit-scrollbar{
-     		// display: none;  
+     		display: none;  
 		}
         
     }

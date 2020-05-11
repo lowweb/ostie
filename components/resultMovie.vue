@@ -27,11 +27,18 @@
         <li  class="result__list-itm" v-for="(artRow,index) in resRow.artistData" @key="index">
             <!-- <img class="movie__poster" :src="artRow.mPoster"> -->
             <span class="result__list-index">{{index + 1}}</span>
-           <a class="link" :href="rootSite + artRow.mLink" target="_blank">{{artRow.mName}} ({{artRow.mYear}})</a>
+           <a class="link result__list-itm-lnk" :href="rootSite + artRow.mLink" :class="{'result__list-itm-lnk--mp': searchByArtist}" target="_blank">{{artRow.mName}} ({{artRow.mYear}})</a>
+           <!-- <div class="episodes">
+               Эпизоды:
+               <a v-for="epItm in artRow.mEpisodes" class="link episodes__itm" :href="rootSite + epItm.epLink" target="_blank">{{epItm.epName}}</a>
+           </div> -->
+           <div class="result__songs" v-if="artRow.mSongs != undefined">
+               <span v-for="song in artRow.mSongs">{{song}}, </span>
+           </div>
         </li>
         </ol>
         <div @click="showSpoiler" class="result__spoiler link link-brd">Показать больше результатов</div>
-        <!-- <div class="movieName">{{itm.mName}}</div> -->
+        
     </div>
   </div>
 </template>
@@ -170,9 +177,12 @@ methods: {
         width: 32px;
         position: absolute;
         left: 16px;
+        align-self: flex-start;
+        margin-top: 16px;
     }
     &__list-itm {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         font-family: 'Roboto', sans-serif;
         font-style: normal;
@@ -184,7 +194,7 @@ methods: {
 
         &:hover, &:focus {
             background-color: #E4F3FE;
-            color: #FF2B67;
+            // color: #FF2B67;
             &:before {
                 content: "";
                 position: absolute;
@@ -195,12 +205,15 @@ methods: {
             }
         }
 
-        & a {
+        &-lnk {
             height: 100%;
             width: 100%;
             padding: 16px 64px;
             display: flex;
             align-items: center;
+            &--mp {
+                padding-bottom: 6px;
+            }
         }
     }
     &__count-art {
@@ -236,8 +249,27 @@ methods: {
             color: #403F4C;
         }
     }
-}
 
+    &__songs {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        color: #051923;
+        padding: 0 64px 8px 64px;
+    }
+}
+.episodes{
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 16px;
+    padding-left: 64px;
+    &__itm{
+
+    }
+}
 @media screen and (max-width: 680px) {
 .result {
 
@@ -250,6 +282,7 @@ methods: {
     &__list-index {
         left: 8px;
         top: 16px;
+        margin-top: 0;
     }
     &__list-itm {
         &:hover, &:focus {
@@ -258,9 +291,11 @@ methods: {
                 top: 16px;
             }
         }
-        & a {
-
-            padding: 16px 40px 16px 64px;
+        &-lnk {
+            padding: 16px 40px 16px 40px;
+            &--mp {
+               padding: 16px 40px 0px 40px; 
+            }
         }
     }
 
@@ -281,6 +316,9 @@ methods: {
             line-height: 24px;
         }
     }
+     &__songs {
+         padding: 0 40px 8px 40px;
+     }
 }
 }
 </style>
