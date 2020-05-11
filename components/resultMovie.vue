@@ -28,12 +28,13 @@
             <!-- <img class="movie__poster" :src="artRow.mPoster"> -->
             <span class="result__list-index">{{index + 1}}</span>
            <a class="link result__list-itm-lnk" :href="rootSite + artRow.mLink" :class="{'result__list-itm-lnk--mp': searchByArtist}" target="_blank">{{artRow.mName}} ({{artRow.mYear}})</a>
-           <!-- <div class="episodes">
-               Эпизоды:
-               <a v-for="epItm in artRow.mEpisodes" class="link episodes__itm" :href="rootSite + epItm.epLink" target="_blank">{{epItm.epName}}</a>
-           </div> -->
+           <div class="result__episodes" v-if="Object.keys(artRow.mEpisodes).length > 0">
+               В эпизодах:
+               <span v-for="(epItm, index) in artRow.mEpisodes" class="result__episodes-itm">{{epItm.epName}}{{index==artRow.mEpisodes.length-1 ? '' : ', '}}</span>
+           </div>
            <div class="result__songs" v-if="artRow.mSongs != undefined">
-               <span v-for="song in artRow.mSongs">{{song}}, </span>
+               Звучит:
+               <span v-for="(song,index) in artRow.mSongs" class="result__songs-itm">{{song}}{{index==artRow.mSongs.length-1 ? '' : ', '}}</span>
            </div>
         </li>
         </ol>
@@ -256,20 +257,26 @@ methods: {
         font-weight: normal;
         font-size: 16px;
         line-height: 24px;
-        color: #051923;
+        color:#828C91;
         padding: 0 64px 8px 64px;
+        width: 100%;
+        &-itm {
+            color: #051923;
+        }
     }
-}
-.episodes{
-    font-size: 15px;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 16px;
+    &__episodes{
+    font-size: 16px;
+    line-height: 24px;
+    color: #828C91;;
+    padding-bottom: 3px;
     padding-left: 64px;
-    &__itm{
-
-    }
+    width: 100%;
+     &-itm{
+         color: #051923;
+     }
+    }   
 }
+
 @media screen and (max-width: 680px) {
 .result {
 

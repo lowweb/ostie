@@ -6,7 +6,7 @@
         <!-- <div class="smart-music__itm-touch" @click="selectItem(index)"> -->
             <div v-if="!getByArtist" class="smart-music__itm-img"><img :src="itm.artworkUrl100" alt=""></div>
             
-            <div class="smart-music__itm-text">
+            <div class="smart-music__itm-text" :class="{'smart-music__itm-text--arrow':getByArtist}">
                 <span class="smart-music__itm-artist" v-html="itm.artistName"></span>
                 <a class="smart-music__arrow link" v-if="getByArtist" @click.stop="seeSongFromArtist(itm.artistId, $event)" >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -256,19 +256,16 @@ methods: {
         background-color: #E4F3FE;
     }
     &__itm-touch {
-        // display:flex;
-        // align-items: center;;
-        // flex: 1 1 auto;
-        // cursor: pointer;
-        // padding: 16px;
+        
     }
     &__itm-text {
-        display: flex;
-        // flex-direction: column;
         margin: auto 0;
         flex: 1 1 auto;
-        // cursor: pointer;
         margin-right: 10px;
+
+        &--arrow{
+            display: flex;
+        }
 
         &:hover .smart-music__itm-song {
             // text-decoration: underline;
