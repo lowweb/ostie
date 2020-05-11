@@ -2,7 +2,13 @@
     <div class="resent" v-show="isShownResentBlock" >
         <div class="resent__cap">Недавно искали</div>
         <ul class="resent__items" ref="resentItms" @scroll="scrollItm">
-            <li v-for="item of resentList" :key="item.id" class="resent__item">
+            <li v-for="(item, index) of resentList" :key="index" class="resent__item" :ref="index==0 ? 'firstItm' : ''">
+                <a class="resent__item-img" href=""><img :src="item.picUrl" alt="poster-img"></a>
+                <div class="resent__item-film">{{item.film}}</div>
+                <div class="resent__item-song">{{item.song}}</div>
+                <div class="resent__item-artist">{{item.artist}}</div>
+            </li>
+            <li v-for="(item, index)  of resentList" :key="item.id" class="resent__item" :ref="index==0 ? 'cloneItm' : ''">
                 <a class="resent__item-img" href=""><img :src="item.picUrl" alt="poster-img"></a>
                 <div class="resent__item-film">{{item.film}}</div>
                 <div class="resent__item-song">{{item.song}}</div>
@@ -16,12 +22,12 @@
 <script>
 export default {
     data: () => ({
-        
+        viewPort: 0,
     }),
+
     computed: {
         resentList() {
              return this.$store.getters['resent/resentList']
-
         },
         isShownResentBlock() {
             if (this.$store.state.resultmovie.data.results != undefined || this.$store.state.resultmovie.inProgress == true)
@@ -33,21 +39,31 @@ export default {
     },
     methods: {
         scrollItm(e){
-            console.log('ssss1')
-            let { scrollLeft, clientWidth, scrollWidth } = e.target;
-		    if (scrollLeft + clientWidth >= scrollWidth) {
-                console.log('ee')
-                this.$refs.resentItms.scrollTo(0,10)
-            }
+
+            if (e.target.scrollLeft == 0) {
+                   this.$refs.resentItms.scrollLeft= this.$refs.cloneItm[0].offsetLeft - 1 //чтоб не сработало правило ниже
+               }
+
+               if( this.$refs.cloneItm[0].offsetLeft <= e.target.scrollLeft) {
+                   this.$refs.resentItms.scrollTo(0,0)
+               }
+        },
+        resizeViewPort () {
+            this.viewPort = this.$parent.$el.clientWidth
+            //сместили по центру
+            this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollWidth/2 - this.viewPort/2 + this.$refs.cloneItm[0].clientWidth /2
         }
     },
+    destroyed() {
+        window.removeEventListener("resize", this.resizeViewPort);
+    },
     mounted () {
-        console.log(this.$el.children[1].children.length)
-        var lastItm = 
-        console.log(this.$refs.resentItms)
-        this.$refs.resentItms.scrollLeft = 50
-        // this.scrollRight = 10
-        // document.getElementById('scrolling_div').scrollTop = topPos;
+        window.addEventListener("resize", this.resizeViewPort);
+        this.viewPort = this.$parent.$el.clientWidth
+        //сместили по центру
+        this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollWidth/2 - this.viewPort/2 + this.$refs.cloneItm[0].clientWidth /2
+
+
     }
 
 }
@@ -69,7 +85,7 @@ export default {
         -ms-overflow-style: none;
 
     	&::-webkit-scrollbar{
-     		display: none;  
+     		// display: none;  
 		}
         
     }
