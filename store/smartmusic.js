@@ -76,7 +76,9 @@ export const state = () => ({
 
 export const actions = {
     async makeRequest({commit},payload) {
-      await this.$axios.get(`https://itunes.apple.com/search?term=${payload.searchStr}&entity=${(!payload.byArtist) ? 'musicTrack' : 'musicArtist'}&attribute=${(!payload.byArtist) ? 'songTerm' : 'artistTerm'}&media=music&limit=10&offset=0`)
+
+      await this.$axios.get(`https://itunes.apple.com/search?term=${payload.searchStr}&entity=${(!payload.byArtist) ? 'musicTrack' : 'musicArtist'}&attribute=${(!payload.byArtist) ? 'songTerm' : 'artistTerm'}&limit=20&offset=0`)
+      // await this.$axios.get(`https://itunes.apple.com/search?term=${payload.searchStr}&entity=${(!payload.byArtist) ? 'musicTrack' : 'musicArtist'}&attribute=${(!payload.byArtist) ? 'songTerm' : 'artistTerm'}&media=music&limit=10&offset=0`)
           .then((res) => {
             if (res.status === 200) {
              commit('fillResult', res.data.results)
@@ -88,7 +90,7 @@ export const actions = {
         })
     },
     async makeLazyRequest({commit},payload) {
-      await this.$axios.get(`https://itunes.apple.com/search?term=${payload.searchStr}&entity=${(!payload.byArtist) ? 'musicTrack' : 'musicArtist'}&attribute=${(!payload.byArtist) ? 'songTerm' : 'artistTerm'}&media=music&limit=10&offset=${state.page * 10}`)
+      await this.$axios.get(`https://itunes.apple.com/search?term=${payload.searchStr}&entity=${(!payload.byArtist) ? 'musicTrack' : 'musicArtist'}&attribute=${(!payload.byArtist) ? 'songTerm' : 'artistTerm'}&limit=10&offset=${state.page * 10}`)
           .then((res) => {
             if (res.status === 200) {
              commit('addLazyToSearchResult', res.data.results)

@@ -179,17 +179,17 @@ methods: {
     loadMore(e) {
         // console.log('ssss')
         if(!this.seeSongByArtist){
-            console.log('ssss1')
+            // console.log('ssss1')
             let { scrollTop, clientHeight, scrollHeight } = e.target;
 		    if (scrollTop + clientHeight >= scrollHeight) {
                 this.$store.dispatch('smartmusic/makeLazyRequest',{ 'searchStr': this.$store.state.search.inputText, 'byArtist': this.$store.state.search.kindSearchByArtist})    
             }
         }
         else {
-             console.log('ssss2')
+            //  console.log('ssss2')
             let { scrollTop, clientHeight, scrollHeight } = e.target;
 		    if (scrollTop + clientHeight >= scrollHeight) {
-                 console.log('ll')
+                //  console.log('ll')
             this.$store.dispatch('smartmusic/makeLazyRequestArtistSongs',{ 'artistId': this.artistId})  
             }
 

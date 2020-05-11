@@ -83,7 +83,7 @@ export default {
         margin: 0 auto;
         width: 100%;
         -ms-overflow-style: none;
-
+        -webkit-overflow-scrolling: touch;
     	&::-webkit-scrollbar{
      		display: none;  
 		}
