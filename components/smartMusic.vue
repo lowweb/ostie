@@ -1,6 +1,6 @@
 <template>
   <div class="smart-music" @scroll="loadMore">
-    <ul class="smart-music__artist"  :class="{'smart-music__artist--hide': seeSongByArtist}"@scroll="loadMore">
+    <ul class="smart-music__artist"  :class="{'smart-music__artist--hide': seeSongByArtist}">
     <div v-if="Object.keys(smartMusicData)==0" class="smart-music__null-res">Ничего не можем найти... вводите правильно?</div>
     <li class="smart-music__itm" @click="selectItem(index)" v-for="(itm, index) in smartMusicData" :key="index" :value="index" :tabindex="index">
         <!-- <div class="smart-music__itm-touch" @click="selectItem(index)"> -->
@@ -24,11 +24,14 @@
         
     </li>
  </ul>
+
  <ul class="smart-music__artist-song">
-    <div class="smart-music__back-header"><a class="smart-music__arrow link" @click.stop="backToArtist($event)" >
+    <div class="smart-music__back-header">
+        <a class="smart-music__arrow link" @click.stop="backToArtist($event)" >
         <svg transform="rotate(180)" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path  d="M9.5 7L15 12.5L9.5 18" stroke="#1C9CF7" stroke-width="3"/>
         </svg>
+        к исполнителям
         </a>
     </div>
     <li class="smart-music__itm"  @click="selectItemArtistSong(index)" v-for="(itm, index) in getSearchResultArtistSongs" :key="index" :value="index" :tabindex="index">       
@@ -248,16 +251,14 @@ methods: {
         min-height: 60px;
         position: relative;
         cursor: pointer;
-        padding: 16px;
+        padding: 18px 24px 18px 16px;
         flex: 1 1 auto;
 
     }
     &__itm:hover {
         background-color: #E4F3FE;
     }
-    &__itm-touch {
-        
-    }
+
     &__itm-text {
         margin: auto 0;
         flex: 1 1 auto;
@@ -267,11 +268,6 @@ methods: {
             display: flex;
         }
 
-        &:hover .smart-music__itm-song {
-            // text-decoration: underline;
-            // text-decoration-style: dashed;
-            // text-decoration-color: #ffcf1e;
-        }
     }
     &__itm-img {
         margin-right: 20px;
@@ -286,19 +282,9 @@ methods: {
             height: 44px;
         }
     }
-    &__itm-artist {
-        // font-weight: 600;   
-        // position: relative;    
-    } 
 
-    &__itm-song {
-        // font-weight: 300;
-        // position: relative;
-
-    }
     &__itunes-ln{
         display: flex;
-        margin-right: 24px;
         flex: 0 0 112px;
         & > a {
             content: url('~assets/icn-itunes.svg');
@@ -308,7 +294,6 @@ methods: {
         }
     }
     &__itm-audio {
-        right: 40px;
         cursor: pointer;
         flex: 0 0 24px;
         align-self: center;
@@ -318,6 +303,7 @@ methods: {
     &__back-header{
         padding: 16px;
         padding-left: 0px;
+        background-color: #F0F1F2;
 
     }
     &__arrow {
@@ -358,7 +344,7 @@ methods: {
 
     &__itm {
        flex-wrap: wrap;
-       padding: 8px 24px 6px 16px;
+       padding: 8px 18px 6px 16px;
     }
 
     // &__itm-touch {
@@ -378,6 +364,7 @@ methods: {
 
     &__itunes-ln{
             flex: 0 0 auto;
+            margin-right: 0;
             &--track {
                 width: 100%;
                 flex: 1 0 auto;
@@ -394,7 +381,7 @@ methods: {
     }
     &__itm-audio {
         margin-right: 0px;
-        margin-top: 18px;
+        margin-top: 10px;
 
 
     }

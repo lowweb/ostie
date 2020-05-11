@@ -90,7 +90,7 @@ export const actions = {
         })
     },
     async makeLazyRequest({commit},payload) {
-      await this.$axios.get(`https://itunes.apple.com/search?term=${payload.searchStr}&entity=${(!payload.byArtist) ? 'musicTrack' : 'musicArtist'}&attribute=${(!payload.byArtist) ? 'songTerm' : 'artistTerm'}&limit=10&offset=${state.page * 10}`)
+      await this.$axios.get(`https://itunes.apple.com/search?term=${payload.searchStr}&entity=${(!payload.byArtist) ? 'musicTrack' : 'musicArtist'}&attribute=${(!payload.byArtist) ? 'songTerm' : 'artistTerm'}&limit=20&offset=${state.page * 20}`)
           .then((res) => {
             if (res.status === 200) {
              commit('addLazyToSearchResult', res.data.results)
@@ -104,7 +104,7 @@ export const actions = {
 
 
     async makeRequestArtistSongs({commit},payload) {
-      await this.$axios.get(`https://itunes.apple.com/lookup?id=${payload.artistId}&entity=song&limit=10&offset=0`)
+      await this.$axios.get(`https://itunes.apple.com/lookup?id=${payload.artistId}&entity=song&limit=20&offset=0`)
           .then((res) => {
             if (res.status === 200) {
              commit('fillResultArtistSongs', res.data.results)
@@ -117,7 +117,7 @@ export const actions = {
     },
 
     async makeLazyRequestArtistSongs({commit},payload) {
-      await this.$axios.get(`https://itunes.apple.com/lookup?id=${payload.artistId}&entity=song&limit=10&offset=${state.pageArtistSongs * 10}`)
+      await this.$axios.get(`https://itunes.apple.com/lookup?id=${payload.artistId}&entity=song&limit=20&offset=${state.pageArtistSongs * 20}`)
           .then((res) => {
             if (res.status === 200) {
              commit('addLazyToSearchResultArtistSongs', res.data.results)

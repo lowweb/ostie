@@ -1,6 +1,10 @@
 <template>
     <div class="resent" v-show="isShownResentBlock" >
         <div class="resent__cap">Недавно искали</div>
+        <!-- <div>{{viewPort}}</div>
+        <div>{{res}}</div>
+    <div>{{first}}</div>
+    <div>{{clone}}</div> -->
         <ul class="resent__items" ref="resentItms" @scroll="scrollItm">
             <li v-for="(item, index) of resentList" :key="index" class="resent__item" :ref="index==0 ? 'firstItm' : ''">
                 <a class="resent__item-img" href=""><img :src="item.picUrl" alt="poster-img"></a>
@@ -23,6 +27,9 @@
 export default {
     data: () => ({
         viewPort: 0,
+        res: 0,
+        first: 0,
+        clone: 0
     }),
 
     computed: {
@@ -39,18 +46,27 @@ export default {
     },
     methods: {
         scrollItm(e){
+            this.res = this.$refs.resentItms.scrollLeft
+            this.first = this.$refs.firstItm[0].offsetLeft
+            this.clone = this.$refs.cloneItm[0].offsetLeft
 
-            if (e.target.scrollLeft == 0) {
+            if (this.$refs.resentItms.scrollLeft == 0) {
                    this.$refs.resentItms.scrollLeft= this.$refs.cloneItm[0].offsetLeft - 1 //чтоб не сработало правило ниже
+                    
                }
-
-               if( this.$refs.cloneItm[0].offsetLeft <= e.target.scrollLeft) {
-                   this.$refs.resentItms.scrollTo(0,0)
+            // console.log (e.target)
+            // console.log(this.$refs.resentItms.scrollLeft)
+            // console.log(this.res)
+               if( this.$refs.cloneItm[0].offsetLeft <= this.$refs.resentItms.scrollLeft) {
+                //    this.$refs.resentItms.scrollTo(0,0)
+                this.$refs.resentItms.scrollLeft=1
+                  
                }
         },
         resizeViewPort () {
             this.viewPort = this.$parent.$el.clientWidth
             //сместили по центру
+            // this.$refs.resentItms.scrollLeft = 50
             this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollWidth/2 - this.viewPort/2 + this.$refs.cloneItm[0].clientWidth /2
         }
     },
@@ -61,6 +77,7 @@ export default {
         window.addEventListener("resize", this.resizeViewPort);
         this.viewPort = this.$parent.$el.clientWidth
         //сместили по центру
+        // this.$refs.resentItms.scrollLeft = 50
         this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollWidth/2 - this.viewPort/2 + this.$refs.cloneItm[0].clientWidth /2
 
 

@@ -268,8 +268,7 @@ methods: {
     font-size: 16px;
     line-height: 24px;
     color: #828C91;;
-    padding-bottom: 3px;
-    padding-left: 64px;
+    padding: 0 64px 8px 64px;
     width: 100%;
      &-itm{
          color: #051923;
@@ -324,6 +323,9 @@ methods: {
         }
     }
      &__songs {
+         padding: 0 40px 8px 40px;
+     }
+     &__episodes {
          padding: 0 40px 8px 40px;
      }
 }
