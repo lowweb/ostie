@@ -2,7 +2,7 @@
 export default {
   server: {
     port: 3000, // default: 3000
-    host: '192.168.1.54' // default: localhost
+    host: 'localhost' // default: localhost
   },
   mode: 'universal',
   /*
