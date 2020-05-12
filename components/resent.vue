@@ -49,8 +49,8 @@ export default {
             this.res = this.$refs.resentItms.scrollLeft
             this.first = this.$refs.firstItm[0].offsetLeft
             this.clone = this.$refs.cloneItm[0].offsetLeft
-
             if (this.$refs.resentItms.scrollLeft == 0) {
+               
                    this.$refs.resentItms.scrollLeft= this.$refs.cloneItm[0].offsetLeft - 1 //чтоб не сработало правило ниже
                     
                }
@@ -59,6 +59,7 @@ export default {
             // console.log(this.res)
                if( this.$refs.cloneItm[0].offsetLeft <= this.$refs.resentItms.scrollLeft) {
                 //    this.$refs.resentItms.scrollTo(0,0)
+                
                 this.$refs.resentItms.scrollLeft=1
                   
                }
@@ -100,7 +101,7 @@ export default {
         margin: 0 auto;
         width: 100%;
         -ms-overflow-style: none;
-        -webkit-overflow-scrolling: touch;
+        //-webkit-overflow-scrolling: touch;
     	&::-webkit-scrollbar{
      		display: none;  
 		}
