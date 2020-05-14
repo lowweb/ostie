@@ -7,13 +7,13 @@
     <div>{{clone}}</div> -->
         <ul class="resent__items" ref="resentItms" @scroll="scrollItm">
             <li v-for="(item, index) of resentList" :key="index" class="resent__item" :ref="index==0 ? 'firstItm' : ''">
-                <a class="resent__item-img" href=""><img :src="item.picUrl" alt="poster-img"></a>
+                <a class="resent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank"><img :src="item.imgurl" alt="poster-img"></a>
                 <div class="resent__item-film">{{item.film}}</div>
                 <div class="resent__item-song">{{item.song}}</div>
                 <div class="resent__item-artist">{{item.artist}}</div>
             </li>
             <li v-for="(item, index)  of resentList" :key="item.id" class="resent__item" :ref="index==0 ? 'cloneItm' : ''">
-                <a class="resent__item-img" href=""><img :src="item.picUrl" alt="poster-img"></a>
+                <a class="resent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank"><img :src="item.imgurl" alt="poster-img"></a>
                 <div class="resent__item-film">{{item.film}}</div>
                 <div class="resent__item-song">{{item.song}}</div>
                 <div class="resent__item-artist">{{item.artist}}</div>
@@ -34,7 +34,8 @@ export default {
 
     computed: {
         resentList() {
-             return this.$store.getters['resent/resentList']
+            //  return this.$store.getters['resent/resentList']
+             return this.$store.state.resent.resentSearch
         },
         isShownResentBlock() {
             if (this.$store.state.resultmovie.data.results != undefined || this.$store.state.resultmovie.inProgress == true)
@@ -45,6 +46,7 @@ export default {
         }
     },
     methods: {
+        
         scrollItm(e){
             this.res = this.$refs.resentItms.scrollLeft
             this.first = this.$refs.firstItm[0].offsetLeft
@@ -74,14 +76,11 @@ export default {
     destroyed() {
         window.removeEventListener("resize", this.resizeViewPort);
     },
-    mounted () {
+    mounted () {    
         window.addEventListener("resize", this.resizeViewPort);
         this.viewPort = this.$parent.$el.clientWidth
         //сместили по центру
-        // this.$refs.resentItms.scrollLeft = 50
         this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollWidth/2 - this.viewPort/2 + this.$refs.cloneItm[0].clientWidth /2
-
-
     }
 
 }

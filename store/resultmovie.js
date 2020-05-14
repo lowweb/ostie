@@ -22,7 +22,7 @@ export const state = () => ({
 
 export const actions = {
     async makeRequest({commit},searchObj,) {
-      console.log(searchObj)
+      // console.log(searchObj)
       await this.$axios.get('/search?', {
             params: {
                 'media': 'movie',
@@ -32,7 +32,7 @@ export const actions = {
             })
             .then((res) => {
               if (res.status === 200) {
-                console.log(res.data)  
+                // console.log(res.data)  
                 commit('fillData', res.data)
                 commit('changeProgress', false)
               }
