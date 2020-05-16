@@ -23,8 +23,8 @@
             <div>Попробуйте найти фильмы <a class="link link--brd" @click.prevent="searchAll(resRow.artist,'')">по исполнителю</a></div>
         </div>
 
-        <ol class="result__list" :class="[Object.keys(resRow.artistData).length > 10 & !isMobile ? 'result__list--wspoiler' : '']">
-        <li  class="result__list-itm" v-for="(artRow,index) in resRow.artistData" @key="index">
+        <ol class="result__list" :class="[Object.keys(resRow.artistData).length > 10 ? 'result__list--wspoiler' : '']">
+        <li  class="result__list-itm" :class="index >= 10 ? 'result__list-itm--hide' : ''" v-for="(artRow,index) in resRow.artistData" @key="index">
             <!-- <img class="movie__poster" :src="artRow.mPoster"> -->
             <span class="result__list-index">{{index + 1}}</span>
            <a @click="saveToResent(artRow.mName,artRow.mYear,artRow.mLink)" class="link result__list-itm-lnk" :href="rootSite + artRow.mLink" :class="{'result__list-itm-lnk--mp': searchByArtist}" target="_blank">{{artRow.mName}} ({{artRow.mYear}})</a>
@@ -73,11 +73,6 @@ computed: {
             return true
         else
             return false
-    },
-    isMobile() {
-         if( screen.width <= 680 ) {
-                    return true;
-                }
     }
 },
 methods: {
@@ -122,6 +117,11 @@ methods: {
     showSpoiler(el) {
         //убираем споилер
         el.target.parentElement.querySelector(".result__list--wspoiler").classList.toggle("result__list--wspoiler")
+        var listItm = el.target.parentElement.querySelectorAll('.result__list-itm')
+        listItm .forEach(function(el) {
+            el.classList.remove('result__list-itm--hide')
+        });
+
     },
     saveToResent(film,year,link){
      this.postResentData = {
@@ -170,8 +170,8 @@ methods: {
         
 
         &--wspoiler {
-            height: 570px;
-            overflow: hidden;
+            // height: 570px;
+            // overflow: hidden;
             margin-bottom: 24px;
 
             & ~ .result__spoiler {
@@ -209,6 +209,12 @@ methods: {
         line-height: 24px;
         position: relative;
         border-bottom: 1px solid #F0F1F2;
+
+        &--hide {
+            height: 0px;
+            overflow: hidden;
+            border-bottom: none;
+        }
 
         &:hover, &:focus {
             background-color: #E4F3FE;

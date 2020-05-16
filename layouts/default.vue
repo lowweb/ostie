@@ -39,6 +39,14 @@ body {
         // fill: #FF2B67;
       }
     }
+
+    &--disable {
+      color: #051923;
+      cursor: not-allowed;
+      &:hover {
+        color: #051923;
+      }
+    }
 }
 
 .link--br {

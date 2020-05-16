@@ -1,10 +1,13 @@
 <template>
     <footer class="foo">
         <div class="foo__copyr">Ostie © 2015–2020</div>
-        <a href="" class="foo__about link" @click.prevent="showInfo">О проекте</a> 
+        <a href="" class="foo__about link" :class="isShowInfo==true ? 'link--disable': ''" @click.prevent="showInfo">О проекте</a> 
         <a href="" class="foo__social link">Ostie в Telegram</a>
         <transition name="showninfo">
         <div class="foo__about-text" v-if="isShowInfo">
+            <svg @click.prevent="hideInfo" class="foo__about-text-arr" transform="rotate(90)" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path  d="M9.5 7L15 12.5L9.5 18" stroke="#C4C4C4" stroke-width="3"/>
+            </svg>
             <div class="foo__about-text-cap">Краткая информация о проекте</div>
             <div>Ostie.org помогает найти фильм по его саундтреку.
 Если вам хочется узнать, в каком фильме звучала та самая песня или в создании саундтрека к какому фильму принимала участие ваша любимая группа или исполнитель – Ostie легко и просто ответит на эти вопросы.</div>
@@ -18,9 +21,8 @@ export default {
         isShowInfo: false
     }),
     methods: {
-        showInfo () {
-            
-            this.isShowInfo=!this.isShowInfo
+        showInfo (el) {
+            this.isShowInfo = true
             setTimeout(function(){
                 window.scrollTo({
                     top: document.body.scrollHeight,
@@ -29,6 +31,9 @@ export default {
                 
             }, 350);
             
+        },
+        hideInfo () {
+            this.isShowInfo = false
         }
     }
    
@@ -54,7 +59,7 @@ export default {
 
     // transition: max-height .5s, padding .5s;
     &__about-text {
-        padding: 48px 0 40px 0;
+        padding: 24px 0 16px 0;
         margin: 0 auto;
         max-width: 744px;
         // height: 0;
@@ -81,10 +86,19 @@ export default {
             margin-bottom: 16px;
         }
 
+
         &--shown{
-            padding: 48px 0 40px 0;
             height: 100%;
-            transition: height .5s, padding .8s;
+            transition: height .7s, padding .8s;
+        }
+
+        &-arr{
+            align-self: center;
+            margin-bottom: 24px;
+            &:hover path{
+                stroke: #FF2B67;
+
+            }
         }
 
     }
@@ -105,11 +119,9 @@ export default {
     }
     &__about {
         margin-right: 40px;
-        cursor: pointer;
     }
     &__social{
         margin-right: auto;
-        cursor: pointer;
         display: flex;
         align-items: center;
 
@@ -145,7 +157,7 @@ padding: 0;
     &__copyr{
         margin-left: 0;
         margin-right: 0;
-        order: 3;
+        order: 4;
     }
     &__about {
         margin-right: 0;
@@ -154,13 +166,21 @@ padding: 0;
     }
     &__social{
         margin-right: 0;
-        order: 2;
+        order: 3;
         margin-bottom: 24px;
     }
     &__about-text {
-        order: 4;
+        order: 2;
         margin-left: 24px;
         margin-right: 24px;
+        font-size: 16px;
+        line-height: 24px;
+        padding: 0px 0 56px 0;
+        &-cap {
+            font-size: 20px;
+            line-height: 24px;
+        }
+        
     }
 }
 }
