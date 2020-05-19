@@ -2,13 +2,6 @@ export const state = () => ({
     resentSearch: []
 })
 
-// export const getters = {
-//   resentList (state) {
-//     return state.resentSearch
-//   }
-
-// }
-
 export const mutations = {
     add(state, data) {
         state.resentSearch = data

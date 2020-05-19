@@ -64,7 +64,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
  axios: {
-    baseURL:  process.env.NODE_ENV === 'production'? 'api' : 'http://localhost:5000/api',
+    baseURL:  process.env.NODE_ENV === 'production'? 'http://82.162.148.22/api' : 'http://localhost:5000/api',
     // proxy: true // Can be also an object with default options
 },
 

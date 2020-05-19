@@ -23,8 +23,12 @@ html {
 }
 body {
   // height: 100%;
-}
 
+}
+.body--noscroll{
+    overflow: hidden;
+  }
+  
 .link {
     text-decoration: none;
     color: #1C9CF7;

@@ -27,7 +27,7 @@ import Title from '~/components/title.vue'
 import Footer from '~/components/footer.vue'
 // import smartMusic from '~/components/smartMusic.vue'
 export default {
-    async fetch({store}) {
+    async fetch ({store}) {
         await store.dispatch("resent/getResentData")
     },
     components: {

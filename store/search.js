@@ -3,7 +3,8 @@ export const state = () => ({
     isReturnResults: false,
     whatSearch: [],
     kindSearchByArtist: true,
-    loaderIcn: require(`../assets/bars.svg`) 
+    loaderIcn: require(`../assets/bars.svg`),
+    inputTextOnChangeFocus: ' ' 
   })
 
   export const getters = {
@@ -31,6 +32,10 @@ export const state = () => ({
         state.loaderIcn=require(`../assets/bars--pink.svg`) 
       else 
         state.loaderIcn=require(`../assets/bars.svg`) 
+    },
+    rememberInputText (state) {
+      state.inputTextOnChangeFocus = state.inputText
     }
+
 
   }

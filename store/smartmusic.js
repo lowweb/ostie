@@ -5,7 +5,8 @@ export const state = () => ({
     searchResultHighLigth:[],
     byArtist: true,
     page: 1,
-    pageArtistSongs: 1
+    pageArtistSongs: 1,
+    selectedIndex: NaN
   })
 
 
@@ -21,6 +22,9 @@ export const state = () => ({
     },
     getSearchResultArtistSongs(state) {
       return state.searchResultArtistSongs
+    },
+    getCurrentIndex(state) {
+      return state.selectedIndex
     }
 }
 
@@ -71,6 +75,9 @@ export const state = () => ({
           state.searchResultHighLigth[i][keyName]=item[keyName].replace(re, "<span style='color:#051923'>"+originPart+"</span>");
         }
       })
+    },
+    setCurentIndex(state,index){
+      state.selectedIndex = index
     }
 }
 

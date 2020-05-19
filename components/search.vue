@@ -2,8 +2,8 @@
     <div class="search">
         
         <div class="search__input" :class="{'search__input--pink': !kindSearchByArtist}" v-closable="closePopup">
-            <smartMusic v-if="popupVisible" class="search__input-smart"/>
-            <input type="text" :placeholder="placeholderText"  @focus="isInputFocused=true" @blur="isInputFocused=false" v-model="textInput" @click="showPopup">
+            <smartMusic v-if="popupVisible" class="search__input-smart" ref="smart"/>
+            <input type="text" :placeholder="placeholderText"  @focus="isInputFocused=true" @blur="isInputFocused=false" v-model="textInput" @click="showPopup" @keyup.down="setFocus">
             
             <svg class="search__input-enter"  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14.5 6H20.5V16H4.5" :style="{'stroke': enterImgColor}" stroke="#C4C4C4" stroke-width="2"/>
@@ -119,6 +119,7 @@ export default {
             if (value.length > 1) {
                 this.popupVisible = true
                 this.throttledGet()
+                this.$store.commit('search/rememberInputText') 
             }
             if (value.length == 0) {
                 this.popupVisible = false
@@ -130,7 +131,11 @@ export default {
         get() {
             return this.$store.state.smartmusic.visible
         },
-        set(value){   
+        set(value){  
+            if (value) 
+                document.body.classList.add("body--noscroll")
+            else
+                document.body.classList.remove("body--noscroll")    
             this.$store.commit('smartmusic/changeVisible',value)
         }
           
@@ -218,6 +223,14 @@ export default {
         this.$store.commit('resultmovie/changeProgress', true)
         //статус о том что был сделан запрос, необходим для того чтобы после повторного щелчка очистить input
         this.$store.commit('search/statusResults',true)
+    },
+    setFocus () {
+        if (this.popupVisible) {
+         this.$refs.smart.$el.firstChild.firstElementChild.focus()
+         this.$store.commit('smartmusic/setCurentIndex',0)  
+         this.$store.commit('search/change',this.$store.state.smartmusic.searchResult[0]['artistName'])
+
+        }
     }
   },
   components: {

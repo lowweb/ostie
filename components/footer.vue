@@ -4,7 +4,8 @@
         <a href="" class="foo__about link" :class="isShowInfo==true ? 'link--disable': ''" @click.prevent="showInfo">О проекте</a> 
         <a href="" class="foo__social link">Ostie в Telegram</a>
         <transition name="showninfo">
-        <div class="foo__about-text" v-if="isShowInfo">
+         <div class="container">
+            <div class="foo__about-text" v-if="isShowInfo">
             <svg @click.prevent="hideInfo" class="foo__about-text-arr" transform="rotate(90)" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path  d="M9.5 7L15 12.5L9.5 18" stroke="#C4C4C4" stroke-width="3"/>
             </svg>
@@ -12,6 +13,8 @@
             <div>Ostie.org помогает найти фильм по его саундтреку.
 Если вам хочется узнать, в каком фильме звучала та самая песня или в создании саундтрека к какому фильму принимала участие ваша любимая группа или исполнитель – Ostie легко и просто ответит на эти вопросы.</div>
         </div>
+        </div>   
+
         </transition>
     </footer>
 </template>
