@@ -98,6 +98,7 @@ export default {
     display: flex;
     flex-direction: column;
     width: 100%;
+    flex: 1 0 auto;
     // overflow-x: scroll;
 
     &__items {
