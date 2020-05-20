@@ -38,6 +38,7 @@
             </div>
     </li> 
  </ul>
+ 
 </div>
 
 </template>
@@ -185,6 +186,7 @@ methods: {
             // console.log('ssss1')
             let { scrollTop, clientHeight, scrollHeight } = e.target;
 		    if (scrollTop + clientHeight >= scrollHeight) {
+                this.$store.commit('smartmusic/setLazyLoadingStatus',true)
                 this.$store.dispatch('smartmusic/makeLazyRequest',{ 'searchStr': this.$store.state.search.inputText, 'byArtist': this.$store.state.search.kindSearchByArtist})    
             }
         }
@@ -193,6 +195,7 @@ methods: {
             let { scrollTop, clientHeight, scrollHeight } = e.target;
 		    if (scrollTop + clientHeight >= scrollHeight) {
                 //  console.log('ll')
+            this.$store.commit('smartmusic/setLazyLoadingStatus',true)    
             this.$store.dispatch('smartmusic/makeLazyRequestArtistSongs',{ 'artistId': this.artistId})  
             }
 
@@ -205,15 +208,10 @@ methods: {
         if (index < this.$refs.smartItem.length) {
             this.$refs.smartItem[index].focus()
             this.$store.commit('smartmusic/setCurentIndex',index)
-
-            // for (var item of this.$refs.smartItem) {
-            //     item.classList.remove('smart-music__itm--selected');
-            // }
-            // this.$refs.smartItem[index].classList.add("smart-music__itm--selected")
-            // console.log(this.getItemByIndex(index)['artistName'])
             this.$store.commit('search/change',this.getItemByIndex(index)['artistName'])
         }
         if (index == this.$refs.smartItem.length -1) {
+            this.$store.commit('smartmusic/setLazyLoadingStatus',true)
             if(!this.seeSongByArtist)
                 this.$store.dispatch('smartmusic/makeLazyRequest',{ 'searchStr': this.$store.state.search.inputText, 'byArtist': this.$store.state.search.kindSearchByArtist})    
             else
@@ -377,8 +375,10 @@ methods: {
         margin-top: 26px;
         margin-left: 16px;
         
-    }    
-}
+    }  
+}  
+
+
 
 
 .audio {

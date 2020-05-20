@@ -6,7 +6,8 @@ export const state = () => ({
     byArtist: true,
     page: 1,
     pageArtistSongs: 1,
-    selectedIndex: NaN
+    selectedIndex: NaN,
+    lazyLoadingStatus: false
   })
 
 
@@ -25,6 +26,9 @@ export const state = () => ({
     },
     getCurrentIndex(state) {
       return state.selectedIndex
+    },
+    getLazyLoadingStatus (state) {
+      return state.getLazyLoadingStatus
     }
 }
 
@@ -78,6 +82,9 @@ export const state = () => ({
     },
     setCurentIndex(state,index){
       state.selectedIndex = index
+    },
+    setLazyLoadingStatus(state,status){
+      state.lazyLoadingStatus = status
     }
 }
 
@@ -101,6 +108,7 @@ export const actions = {
           .then((res) => {
             if (res.status === 200) {
              commit('addLazyToSearchResult', res.data.results)
+             commit('setLazyLoadingStatus',false)  
              state.page++
            }
           })
@@ -128,6 +136,7 @@ export const actions = {
           .then((res) => {
             if (res.status === 200) {
              commit('addLazyToSearchResultArtistSongs', res.data.results)
+             commit('setLazyLoadingStatus',false) 
              state.pageArtistSongs++
            }
           })

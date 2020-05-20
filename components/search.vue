@@ -2,7 +2,9 @@
     <div class="search" @click.stop>
         <!-- <div class="search__input" :class="{'search__input--pink': !kindSearchByArtist}" v-closable="closePopup"> -->
             <div class="search__input" :class="{'search__input--pink': !kindSearchByArtist}">
+            
             <smartMusic v-if="popupVisible" class="search__input-smart" ref="smart"/>
+            <div v-if="lazyLoadingStatus" class="search__smart-loader"><span class="loader"></span></div>
             <input type="text" :placeholder="placeholderText"  @focus="isInputFocused=true" @blur="isInputFocused=false" v-model="textInput" @click="showPopup" @keyup.down="setFocus">
             
             <svg class="search__input-enter"  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -143,7 +145,10 @@ export default {
 
     inProgress() {
        return this.$store.state.resultmovie.inProgress
-    }, 
+    },
+    lazyLoadingStatus() {
+        return this.$store.state.smartmusic.lazyLoadingStatus
+    } 
     }, 
     
   methods: {
@@ -375,8 +380,79 @@ export default {
            width: auto;
         }
     }
+      
+    &__smart-loader {
+        height: 280px;
+        width: 100%;
+        top: 72px;
+        display: flex;
+        position: absolute;
+        z-index: 5;
+        &:before {
+            content:'';
+            background-color: #ffffff;
+            opacity: 0.3;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        &:after {
+            content:'';
+            background-color: #ffffff;
+            position: absolute;
+            width: 100%;
+            height: 60px;
+            bottom: 0;
+            z-index: 2;
+        }
+    }
+   
     }
 
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+  z-index: 3;
+}
+.loader {
+  margin: 0 auto 15px auto;
+  font-size: 3px;
+  align-self: flex-end;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1.1em solid rgba(35,180,255, 0.2);
+  border-right: 1.1em solid rgba(35,180,255, 0.2);
+  border-bottom: 1.1em solid rgba(35,180,255, 0.2);
+  border-left: 1.1em solid #FF2B67;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
 
 @media screen and (max-width: 680px) {
         .search {

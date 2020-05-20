@@ -86,7 +86,7 @@ export default {
         window.addEventListener("resize", this.resizeViewPort);
         this.viewPort = this.$parent.$el.clientWidth
         //сместили по центру
-        this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollWidth/2 - this.viewPort/2 + this.$refs.cloneItm[0].clientWidth /2
+        // this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollWidth/2 - this.viewPort/2 + this.$refs.cloneItm[0].clientWidth /2
     }
 
 }
