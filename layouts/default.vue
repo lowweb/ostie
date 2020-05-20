@@ -42,7 +42,7 @@ body {
 
     &--disable {
       color: #051923;
-      cursor: not-allowed;
+      cursor: default;
       &:hover {
         color: #051923;
       }

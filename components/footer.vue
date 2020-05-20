@@ -167,8 +167,8 @@ export default {
 @media screen and (max-width: 792px) {
 .foo {
     flex-direction: column;
-    flex: 0 0 100%; 
-    height: 100%;
+    // flex: 0 0 100%; 
+    // height: 100%;
     &__copyr{
         margin-left: 0;
         margin-right: 0;

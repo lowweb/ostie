@@ -1,7 +1,7 @@
 <template>
   <div class="smart-music" @scroll="loadMore">
     <ul class="smart-music__artist"  :class="{'smart-music__artist--hide': seeSongByArtist}">
-    <div v-if="Object.keys(smartMusicData)==0" class="smart-music__null-res">Ничего не можем найти... вводите правильно?</div>
+    <div v-if="Object.keys(smartMusicData).length==0" class="smart-music__null-res">Ничего не можем найти... вводите правильно?</div>
     <li class="smart-music__itm" :class="getCurrentIndex == index ? 'smart-music__itm--selected' : ''" @click="selectItem(index)" v-for="(itm, index) in smartMusicData" :key="index" :value="index" :tabindex="index" ref="smartItem" @keyup.down="setFocusNextItm(index+1)" @keyup.up="setFocusPrevItm(index-1)" @keyup.enter="selectItem(index)" @mouseover="onHoverEl(index)">
         <!-- <div class="smart-music__itm-touch" @click="selectItem(index)"> -->
             <div v-if="!getByArtist" class="smart-music__itm-img"><img :src="itm.artworkUrl100" alt=""></div>
@@ -32,7 +32,7 @@
         к исполнителям
         </a>
     </div>
-    <li class="smart-music__itm"  @click="selectItemArtistSong(index)" v-for="(itm, index) in getSearchResultArtistSongs" :key="index" :value="index" :tabindex="index">       
+    <li class="smart-music__itm"  @click="selectItemArtistSong(index)" ref="smartItemSong" v-for="(itm, index) in getSearchResultArtistSongs" :key="index" :value="index" :tabindex="index" @mouseover="onHoverEl(index)">       
         <div class="smart-music__itm-text">
                 <span  class="smart-music__itm-song">{{itm.trackName}}</span>
             </div>
@@ -204,7 +204,6 @@ methods: {
 
     },
     setFocusNextItm(index) {
-
         if (index < this.$refs.smartItem.length) {
             this.$refs.smartItem[index].focus()
             this.$store.commit('smartmusic/setCurentIndex',index)
@@ -219,19 +218,12 @@ methods: {
         }
     },
     setFocusPrevItm (index) {
-
         if (index >= 0) {
             this.$refs.smartItem[index].focus()
             this.$store.commit('smartmusic/setCurentIndex',index)
-            // for (var item of this.$refs.smartItem) {
-            //     item.classList.remove('smart-music__itm--selected');
-            // }
-            // this.$refs.smartItem[index].classList.add("smart-music__itm--selected")
-            this.$refs.smartItem[index].classList.add('dasda')
             this.$store.commit('search/change',this.getItemByIndex(index)['artistName'])
         }
-        if (index < 0 ) {
-              
+        if (index < 0 ) {    
             this.$store.commit('search/change',this.$store.state.search.inputTextOnChangeFocus)
             this.$parent.$el.querySelector('input').focus()
 
@@ -240,9 +232,16 @@ methods: {
     onHoverEl(index) {
 
         if (this.lastMousePos != window.event.clientX){
-            this.$refs.smartItem[index].focus()
-            this.$store.commit('smartmusic/setCurentIndex',index)
+            if (this.seeSongByArtist) {
+                this.$refs.smartItemSong[index].focus()
+            }
+            else {
+                this.$refs.smartItem[index].focus()
+                this.$store.commit('smartmusic/setCurentIndex',index)
+            }
+            
             this.lastMousePos = window.event.clientX
+
         }
         
    
