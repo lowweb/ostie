@@ -1,5 +1,5 @@
 <template>
-<main @click="hideSmartSearch" :class="smartMusicVisible ? 'main--noscroll' : ''">
+<main @click="hideSmartSearch" :class="smartMusicVisible ? '' : ''">
      
  <div class="container">
  <Title />     
