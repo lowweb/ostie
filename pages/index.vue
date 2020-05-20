@@ -1,5 +1,5 @@
 <template>
-<main>
+<main @click="hideSmartSearch">
      
  <div class="container">
  <Title />     
@@ -29,6 +29,11 @@ import Footer from '~/components/footer.vue'
 export default {
     async fetch ({store}) {
         await store.dispatch("resent/getResentData")
+    },
+    methods: {
+      hideSmartSearch() {
+        this.$store.commit('smartmusic/changeVisible',false)
+      }
     },
     components: {
     searchType,

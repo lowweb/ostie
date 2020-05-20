@@ -1,7 +1,7 @@
 <template>
-    <div class="search">
-        
-        <div class="search__input" :class="{'search__input--pink': !kindSearchByArtist}" v-closable="closePopup">
+    <div class="search" @click.stop>
+        <!-- <div class="search__input" :class="{'search__input--pink': !kindSearchByArtist}" v-closable="closePopup"> -->
+            <div class="search__input" :class="{'search__input--pink': !kindSearchByArtist}">
             <smartMusic v-if="popupVisible" class="search__input-smart" ref="smart"/>
             <input type="text" :placeholder="placeholderText"  @focus="isInputFocused=true" @blur="isInputFocused=false" v-model="textInput" @click="showPopup" @keyup.down="setFocus">
             
