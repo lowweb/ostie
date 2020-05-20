@@ -133,11 +133,7 @@ export default {
         get() {
             return this.$store.state.smartmusic.visible
         },
-        set(value){  
-            if (value) 
-                document.body.querySelector('main').classList.add("main--noscroll")
-            else
-                document.body.querySelector('main').classList.remove("main--noscroll")    
+        set(value){    
             this.$store.commit('smartmusic/changeVisible',value)
         }
           

@@ -1,5 +1,5 @@
 <template>
-<main @click="hideSmartSearch">
+<main @click="hideSmartSearch" :class="smartMusicVisible ? 'main--noscroll' : ''">
      
  <div class="container">
  <Title />     
@@ -30,8 +30,14 @@ export default {
     async fetch ({store}) {
         await store.dispatch("resent/getResentData")
     },
+    computed:{
+      smartMusicVisible() {
+        return this.$store.state.smartmusic.visible
+      }
+    },
     methods: {
       hideSmartSearch() {
+        console.log('cl')
         this.$store.commit('smartmusic/changeVisible',false)
       }
     },
