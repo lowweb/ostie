@@ -18,16 +18,12 @@ export default {
   padding: 0;
 }
 html {
-  height: 100%;
   scroll-behavior: smooth;
 }
 body {
   // height: 100%;
 
 }
-.body--noscroll{
-    overflow: hidden;
-  }
   
 .link {
     text-decoration: none;

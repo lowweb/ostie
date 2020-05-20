@@ -275,8 +275,6 @@ export default {
         &-film {
             font-size: 20px;
             line-height: 24px;
-            left: 16px;
-            top: 144px;
         }
         &-song {
             font-size: 18px;

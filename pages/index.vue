@@ -53,6 +53,11 @@ main{
   padding-top: 80px;
   min-height: 100vh;
 }
+.main--noscroll{
+    overflow: hidden;
+    height: 100vh;
+    position: relative;
+  }
 .container {
   max-width: 744px;
   margin: 0 auto;

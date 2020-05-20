@@ -28,9 +28,7 @@
  <ul class="smart-music__artist-song">
     <div class="smart-music__back-header">
         <a class="smart-music__arrow link" @click.stop="backToArtist($event)" >
-        <svg transform="rotate(180)" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path  d="M9.5 7L15 12.5L9.5 18" stroke="#1C9CF7" stroke-width="3"/>
-        </svg>
+        <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m14.5 7-5.5 5.5 5.5 5.5" stroke="#1c9cf7" stroke-width="3"/></svg>
         к исполнителям
         </a>
     </div>
@@ -270,6 +268,7 @@ methods: {
     overflow-y: scroll;
     color: #828C91;
     display: flex;
+    -webkit-overflow-scrolling: touch;
      &__artist{
          width: 100%;
         animation-duration: 800ms;
