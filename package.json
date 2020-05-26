@@ -1,7 +1,7 @@
 {
   "name": "ostie",
   "version": "1.0.0",
-  "description": "search music fo the films",
+  "description": "Быстрый и удобный поиск фильма по саундтреку. Ищем фильмы и сериалы по названию трека и имени артиста.",
   "author": "mono",
   "private": true,
   "scripts": {
