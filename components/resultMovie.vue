@@ -1,6 +1,5 @@
 <template>
   <div class="result" v-show="isShownResBlock">
-    <!-- <div v-show="inProgress" class="result__loader loader"><img src="~assets/bars.svg" />пытаемся найти</div>        -->
     <div class="result__count-art">Найдено артистов: {{resultMovieData.resultsCount}}</div>
     <div class="result__block" v-if="resultMovieData.resultsCount == 0 && searchByArtist">
         <div class="result__block-info">
