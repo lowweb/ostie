@@ -15,7 +15,7 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
       { name: 'keywords', content: 'саундтрек, саундтрек к фильму, найти фильм по саундтреку, фильм, какой саундтрек, где играла песня, какой фильм, поиск фильма, найти по саундтреку, узнать фильм, саундтреки в кино, саундтреки к сериалам, что за фильм, в каком фильме играл саундтрек, музыка к фильмам, музыка из фильма, музыка к сериалам, песни из кино'},
-      { property: "og:url", content: "http://ostie.org"},
+      { property: "og:url", content: "ostie.org"},
       { property: "og:type", content: "website"},
       { property: "og:title", content: "Ostie.org – ищем фильмы и сериалы по саундтреку. Узнай в каком фильме звучит любимая песня!"},
       { property: "og:description", content: "В хорошем кино – хороший саундтрек. Ostie помогает найти фильмы и сериалы по имени артиста или названию композиции. Если вам хочется узнать, в каком фильме звучала та самая песня или в создании саундтрека к какому сериалу принимала участие ваша любимая группа – Ostie поможет."},
