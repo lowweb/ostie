@@ -22,8 +22,8 @@ export default {
       { property: "og:image", content: "/img-social-share.png"},
       { property: "og:site_name", content: "ostie.org"},
       { property: "og:locale", content: "ru_RU"},
-      { property: "og:image:width", content: "1024"},
-      { property: "og:image:height", content: "512"}
+      { property: "og:image:width", content: "968"},
+      { property: "og:image:height", content: "504"}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
