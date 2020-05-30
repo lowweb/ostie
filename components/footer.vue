@@ -2,7 +2,7 @@
     <footer class="foo">
             <div class="foo__copyr">Ostie © 2015–2020</div>
             <a href="" class="foo__about link" :class="isShowInfo==true ? 'link--disable': ''" @click.prevent="showInfo">О проекте</a> 
-            <a href="" class="foo__social link">Ostie в Telegram</a>
+            <a href="https://telegram.im/@ostie_org" target="_blank" class="foo__social link">Ostie в Telegram</a>
         <div class="foo__about-info" :class="isShowInfo ? 'foo__about-info--show' : ''">
             <svg @click.prevent="hideInfo" class="foo__about-info-arr" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path  d="M9.5 7L15 12.5L9.5 18" stroke="#C4C4C4" stroke-width="3"/>
