@@ -1,0 +1,40 @@
+User-agent: Yandex
+# Требуется для правильно обработки ПС
+Allow: /*/_nuxt/*.css
+Allow: /*/_nuxt/*.js
+# Картинки
+Allow: /*/_nuxt/img/*.jpg
+Allow: /*/_nuxt/img/*.jpeg
+Allow: /*/_nuxt/img/*.png
+Allow: /*/_nuxt/img/*.gif
+Clean-param: utm_source&utm_medium&utm_term&utm_content&utm_campaign&yclid&gclid&_openstat&from /
+Crawl-Delay: 5
+
+User-agent: Googlebot
+Disallow: /*.txt
+Allow: /*/_nuxt/*.css
+Allow: /*/_nuxt/*.js
+Allow: /*/_nuxt/img/*.jpg
+Allow: /*/_nuxt/img/*.jpeg
+Allow: /*/_nuxt/img/*.png
+Allow: /*/_nuxt/img/*.gif
+Crawl-Delay: 5
+
+User-agent: *
+Disallow: /*utm
+Disallow: /*clid=
+Disallow: /*openstat
+Disallow: /*from
+Disallow: /*.pdf
+Disallow: /*.xls
+Disallow: /*.doc
+Disallow: /*.ppt
+Disallow: /*.txt
+Allow: /*/_nuxt/*.css
+Allow: /*/<папка содержащая js>/*.js
+Allow: /*/_nuxt/img/*.jpg
+Allow: /*/_nuxt/img/*.jpeg
+Allow: /*/_nuxt/img/*.png
+Allow: /*/_nuxt/img/*.gif
+
+Host: ostie.org

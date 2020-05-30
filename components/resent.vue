@@ -7,7 +7,7 @@
     <div>{{clone}}</div> -->
         <ul class="resent__items" ref="resentItms" @scroll="scrollItm">
             <li v-for="(item, index) of resentList" :key="index" class="resent__item" :ref="index==0 ? 'firstItm' : ''">
-                <a class="resent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank">
+                <a class="resent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank" rel="noopener noreferrer">
                     <div class="resent__item-film">{{item.film}}</div>
                     <img :src="item.imgurl" alt="poster-img">
                 </a>
@@ -16,7 +16,7 @@
                 <div class="resent__item-artist">{{item.artist}}</div>
             </li>
             <li v-for="(item, index)  of resentList" :key="item.id" class="resent__item" :ref="index==0 ? 'cloneItm' : ''">
-                <a class="resent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank">
+                <a class="resent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank" rel="noopener noreferrer">
                     <div class="resent__item-film">{{item.film}}</div>
                     <img :src="item.imgurl" alt="poster-img">
                 </a>

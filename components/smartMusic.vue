@@ -20,7 +20,7 @@
         <!-- </div> -->
         
         <div v-if="!getByArtist" class="smart-music__itm-audio audio" :class="{'audio--play':selectedAudio!=index,'audio--pause': index == selectedAudio}" @click.stop="clickAudioBtn($event.target,index)"><audio :src="itm.previewUrl"></audio></div>
-        <div class="smart-music__itunes-ln" :class="{'smart-music__itunes-ln--track':!getByArtist}"><a  @click.stop="" class="link" :href="(getByArtist) ? itm.artistLinkUrl : itm.artistViewUrl" target="_blank"></a></div>
+        <div class="smart-music__itunes-ln" :class="{'smart-music__itunes-ln--track':!getByArtist}"><a  @click.stop="" class="link" :href="(getByArtist) ? itm.artistLinkUrl : itm.artistViewUrl" target="_blank" rel="noopener noreferrer"></a></div>
         
     </li>
  </ul>
