@@ -31,7 +31,7 @@ Disallow: /*.doc
 Disallow: /*.ppt
 Disallow: /*.txt
 Allow: /*/_nuxt/*.css
-Allow: /*/<папка содержащая js>/*.js
+Allow: /*/_nuxt>/*.js
 Allow: /*/_nuxt/img/*.jpg
 Allow: /*/_nuxt/img/*.jpeg
 Allow: /*/_nuxt/img/*.png
