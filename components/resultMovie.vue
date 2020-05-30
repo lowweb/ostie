@@ -80,14 +80,14 @@ methods: {
         
     },
     switchTosong() {
-        this.$store.commit('search/change','')   
+        this.$store.commit('search/changeLoaderIcn')
+        this.$store.commit('search/changeKindSearchByArtist',false)
+        this.$store.commit('search/statusResults', false)
+        this.$store.commit('smartmusic/clearResult')
         this.$store.commit('resultmovie/emptyData')
+        this.$store.commit('search/change','')   
         //переключаем toogle в положение артиста
         this.$store.commit('toogleswitch/change', true)
-        this.$store.commit('search/changeKindSearchByArtist',false)
-        //loader меняем
-        this.$store.commit('search/changeLoaderIcn')
-
         //смарт поиск vuex поиск по артисту в true
         this.$store.commit('smartmusic/changeByArtist',false)
     

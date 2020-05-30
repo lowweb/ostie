@@ -67,7 +67,6 @@ export const state = () => ({
         keyName = 'artistName'
       else
         keyName = 'trackName' 
-        // console.log('kn=' + keyName) 
       //выделяем текст который нашли в тексте
       state.searchResultHighLigth.forEach( function(item,i,arr){
         if (item[keyName].toLowerCase().indexOf(findStr.toLowerCase()) !== -1) {
