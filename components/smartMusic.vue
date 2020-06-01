@@ -340,7 +340,7 @@ methods: {
         display: flex;
         flex: 0 0 112px;
         & > a {
-            content: url('~assets/icn-itunes.svg');
+            background-image: url('~assets/icn-itunes.svg');
             width: 112px;
             height: 32px;
             
@@ -427,7 +427,7 @@ methods: {
                 margin-top: 8px;
             }
         & > a {
-            content: url('~assets/icn-itunes-m.svg');
+            background-image: url('~assets/icn-itunes-m.svg');
             width: 76px;
             height: 14px;
         }

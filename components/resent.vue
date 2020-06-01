@@ -160,6 +160,7 @@ export default {
             & img {
                 position: absolute;
                 top: 50%;
+                left: 0;
                 transform: translate(0, -50%);
                 height: 135%;
                 width: auto;

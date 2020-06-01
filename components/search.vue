@@ -252,7 +252,7 @@ export default {
         margin-bottom: 80px;
         position: relative;
         &__input {
-            flex: 1;
+            flex: 1 0 auto;
             position: relative;
 
             &-smart {
@@ -318,6 +318,7 @@ export default {
             margin-top: 24px;
             justify-content: space-between;
             padding: 0 16px;
+            flex: 0 0 auto;
         }
         &__params {
             display: flex;
