@@ -26,7 +26,7 @@
         <li  class="result__list-itm" :class="index >= 10 ? 'result__list-itm--hide' : ''" v-for="(artRow,index) in resRow.artistData" @key="index">
             <!-- <img class="movie__poster" :src="artRow.mPoster"> -->
             <span class="result__list-index">{{index + 1}}</span>
-           <a @click="saveToResent(artRow.mName,artRow.mYear,artRow.mLink)" class="link result__list-itm-lnk" :href="rootSite + artRow.mLink" :class="{'result__list-itm-lnk--mp': searchByArtist}" target="_blank">{{artRow.mName}} ({{artRow.mYear}})</a>
+           <a @click="saveToResent(artRow.mName,artRow.mYear,artRow.mLink)" class="link result__list-itm-lnk" :href="rootSite + artRow.mLink" :class="{'result__list-itm-lnk--mp': searchByArtist}" target="_blank" rel="noopener noreferrer">{{artRow.mName}} ({{artRow.mYear}})</a>
            <div class="result__episodes" v-if="Object.keys(artRow.mEpisodes).length > 0">
                В эпизодах:
                <span v-for="(epItm, index) in artRow.mEpisodes" class="result__episodes-itm">{{epItm.epName}}{{index==artRow.mEpisodes.length-1 ? '' : ', '}}</span>

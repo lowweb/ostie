@@ -1,12 +1,28 @@
 <template>
     <div class="resent" v-show="isShownResentBlock" >
-        <div class="resent__cap">Недавно искали</div>
+        
+        <div class="resent__cap">Недавно искали
+            <div class="resent__nav">
+                <button class="resent__nav-btn resent__nav-prev" @click="scrollLeft">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.5 7L9 12.5L14.5 18" stroke="#1C9CF7" stroke-width="3"/>
+                    </svg>
+                </button>
+                <button class="resent__nav-btn resent__nav-next" @click="scrollRight">
+                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <path d="M14.5 7L9 12.5L14.5 18" stroke="#1C9CF7" stroke-width="3"/>
+                     </svg>
+                </button>
+            </div>
+
+        </div>
+        
         <!-- <div>{{viewPort}}</div>
         <div>{{res}}</div>
     <div>{{first}}</div>
     <div>{{clone}}</div> -->
-        <ul class="resent__items" ref="resentItms" @scroll="scrollItm">
-            <li v-for="(item, index) of resentList" :key="index" class="resent__item" :ref="index==0 ? 'firstItm' : ''">
+        <ul class="resent__items" ref="resentItms" @scroll="scrollItm($event)">
+            <li v-for="(item, index) of resentList" :key="index" class="resent__item" :ref="index==0 ? 'leftItm' : ''">
                 <a class="resent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank" rel="noopener noreferrer">
                     <div class="resent__item-film">{{item.film}}</div>
                     <img :src="item.imgurl" alt="poster-img">
@@ -15,7 +31,16 @@
                 <div class="resent__item-song">{{item.song}}</div>
                 <div class="resent__item-artist">{{item.artist}}</div>
             </li>
-            <li v-for="(item, index)  of resentList" :key="item.id" class="resent__item" :ref="index==0 ? 'cloneItm' : ''">
+            <li v-for="(item, index)  of resentList" :key="item.id" class="resent__item" :ref="index==0 ? 'centerItm' : ''">
+                <a class="resent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank" rel="noopener noreferrer">
+                    <div class="resent__item-film">{{item.film}}</div>
+                    <img :src="item.imgurl" alt="poster-img">
+                </a>
+                
+                <div class="resent__item-song">{{item.song}}</div>
+                <div class="resent__item-artist">{{item.artist}}</div>
+            </li>
+            <li v-for="(item, index)  of resentList" :key="item.id" class="resent__item" :ref="index==0 ? 'rightItm' : ''">
                 <a class="resent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank" rel="noopener noreferrer">
                     <div class="resent__item-film">{{item.film}}</div>
                     <img :src="item.imgurl" alt="poster-img">
@@ -33,9 +58,10 @@
 export default {
     data: () => ({
         viewPort: 0,
-        res: 0,
-        first: 0,
-        clone: 0
+        itemWidth: 0,
+        itemGap: 0,
+        scroolWidth: 0,
+        curScrollPos:0,
     }),
 
     computed: {
@@ -52,41 +78,90 @@ export default {
         }
     },
     methods: {
-        
-        scrollItm(e){
-            this.res = this.$refs.resentItms.scrollLeft
-            this.first = this.$refs.firstItm[0].offsetLeft
-            this.clone = this.$refs.cloneItm[0].offsetLeft
-            if (this.$refs.resentItms.scrollLeft == 0) {
+        scrollLeft() {
+           
+            this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollLeft - this.itemWidth - this.itemGap
+            console.log(this.$refs.resentItms.scrollLeft)
+            if ( this.$refs.resentItms.scrollLeft + this.viewPort/2 == this.$refs.leftItm[0].offsetLeft + this.itemWidth/2) {
+                console.log("смешаем")
+            }
+        //    if (this.$refs.resentItms.scrollLeft == 0) {
+        //            console.log("ушли на центр1")
                
-                   this.$refs.resentItms.scrollLeft= this.$refs.cloneItm[0].offsetLeft - 1 //чтоб не сработало правило ниже
-                    
-               }
-            // console.log (e.target)
+        //            this.$refs.resentItms.scrollLeft= this.$refs.cloneItm[0].offsetLeft - this.viewPort/2 + this.itemWidth/2//чтоб не сработало правило ниже 
+        //            console.log(this.$refs.resentItms.scrollLeft)    
+        //        }
+                 
+        },
+        scrollRight() {
+            // this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollLeft + this.itemWidth + this.itemGap
+            // if( this.$refs.cloneItm[0].offsetLeft <= this.$refs.resentItms.scrollLeft) {
+            //     console.log("ушли на lf")
+            //       this.$refs.resentItms.scrollLeft = 1 + this.itemWidth - this.itemGap
+            //    }
+        },
+        scrollItm(e){
+         
             // console.log(this.$refs.resentItms.scrollLeft)
-            // console.log(this.res)
-               if( this.$refs.cloneItm[0].offsetLeft <= this.$refs.resentItms.scrollLeft) {
-                //    this.$refs.resentItms.scrollTo(0,0)
+            // if (this.$refs.resentItms.scrollLeft > this.curScrollPos) {
+            //     console.log ('rht')
+            //     this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollLeft + this.itemWidth
+
+            // }
                 
-                this.$refs.resentItms.scrollLeft=1
-                  
-               }
+            // else {
+            //     console.log('lft') 
+            //     // this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollLeft - this.itemWidth
+            // }
+                   
+            // this.res = this.$refs.resentItms.scrollLeft
+            // this.first = this.$refs.firstItm[0].offsetLeft
+            // this.clone = this.$refs.cloneItm[0].offsetLeft
+            // if (this.$refs.resentItms.scrollLeft == 0) {
+               
+            //        this.$refs.resentItms.scrollLeft= this.$refs.cloneItm[0].offsetLeft - 1 //чтоб не сработало правило ниже
+                    
+            //    }
+            // if( this.$refs.cloneItm[0].offsetLeft <= this.$refs.resentItms.scrollLeft) {
+            //     this.$refs.resentItms.scrollLeft=1             
+            // }
+            // this.curScrollPos = this.$refs.resentItms.scrollLeft
         },
         resizeViewPort () {
+            this.itemWidth = this.$refs.centerItm[0].clientWidth
+            this.scroolWidth = this.$refs.resentItms.scrollWidth
             this.viewPort = this.$parent.$el.clientWidth
+            this.itemGap=parseInt(window.getComputedStyle(this.$refs.centerItm[0],null).getPropertyValue("margin-right"))
             //сместили по центру
-            // this.$refs.resentItms.scrollLeft = 50
-            this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollWidth/2 - this.viewPort/2 + this.$refs.cloneItm[0].clientWidth /2
+            this.$refs.resentItms.scrollLeft = this.$refs.centerItm[0].offsetLeft + this.itemWidth/2 - this.viewPort/2
+
+            //  this.$refs.resentItms.scrollLeft = ((this.scroolWidth + this.itemGap)/2 - this.viewPort)/2 - (this.itemWidth/2 + this.itemGap)
         }
     },
     destroyed() {
         window.removeEventListener("resize", this.resizeViewPort);
     },
-    mounted () {    
-        window.addEventListener("resize", this.resizeViewPort);
+    created(){
+    },
+    mounted () {
+        this.itemWidth = this.$refs.centerItm[0].clientWidth
+        this.scroolWidth = this.$refs.resentItms.scrollWidth
         this.viewPort = this.$parent.$el.clientWidth
+        this.itemGap=parseInt(window.getComputedStyle(this.$refs.centerItm[0],null).getPropertyValue("margin-right"))
+
+        // console.log("ofwi="+ this.viewPort)
+        // console.log("scrWi=" + this.scroolWidth)
+        // console.log("itmWi=" + this.itemWidth)
+        // console.log("gap=" + this.itemGap)
+
+        window.addEventListener("resize", this.resizeViewPort);
+
         //сместили по центру
-        // this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollWidth/2 - this.viewPort/2 + this.$refs.cloneItm[0].clientWidth /2
+        this.$refs.resentItms.scrollLeft = this.$refs.centerItm[0].offsetLeft + this.itemWidth/2 - this.viewPort/2
+        // this.$refs.resentItms.scrollLeft = ((this.scroolWidth + this.itemGap)/2 - this.viewPort)/2 - (this.itemWidth/2 + this.itemGap)
+        // this.curScrollPos = this.$refs.resentItms.scrollLeft
+        // console.log(this.curScrollPos)
+
     }
 
 }
@@ -128,6 +203,7 @@ export default {
         margin: 0 auto;
         width: 100%;
         margin-bottom: 40px;
+        display: flex;
     }
 
     &__item {
@@ -216,14 +292,34 @@ export default {
             color: #403F4C;
         }
     }
+
+    &__nav {
+        margin-left: auto;
+        display: flex;
+
+        &-btn {
+            border: none;
+            background-color: #ffffff;
+            outline: none;
+            display: flex;
+            width: 24px;
+            height: 24px;
+
+            &:hover > svg > path {
+                stroke: #FF2A68;
+            }
+        }
+
+        &-next {
+            transform: scaleX(-1);
+        }
+    }
 }
 
 @media screen and (max-width: 800px) {
 .resent {
-    // padding: 0px 24px; 
     &__cap {
-        margin-left: 24px;
-        width: auto;
+        padding: 0 24px;
     }
 
 }
@@ -236,7 +332,7 @@ export default {
         font-size: 20px;
         line-height: 24px;
         margin-bottom: 32px;
-        margin-left: 24px;
+        padding: 0 24px;
     }
     &__item {
         margin-right: 16px;
@@ -244,24 +340,6 @@ export default {
         &-img {
             width: 312px;
             height: 184px;
-
-
-            // & img {
-            //     position: absolute;
-            //     top: 50%;
-            //     transform: translate(0, -50%);
-            //     height: 135%;
-            //     width: auto;
-            //     transition: height 1s, width 1s;
-                
-            // }
-            // &:hover {
-            //     box-shadow: 2px 10px 16px rgba(0, 114, 194, 0.4);
-            // }
-            // &:hover img {
-            //     height: 165%;
-            //     transition: height 1s, width 1s;
-            // }
 
             &:after {
                 content: '';

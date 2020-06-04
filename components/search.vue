@@ -1,6 +1,5 @@
 <template>
     <div class="search" @click.stop>
-        <!-- <div class="search__input" :class="{'search__input--pink': !kindSearchByArtist}" v-closable="closePopup"> -->
             <div class="search__input" :class="{'search__input--pink': !kindSearchByArtist}">
             
             <smartMusic v-if="popupVisible" class="search__input-smart" ref="smart"/>
@@ -167,9 +166,6 @@ export default {
         // console.log(this.kindSearchByArtist)
         this.$store.dispatch('smartmusic/makeRequest',{ 'searchStr': this.textInput, 'byArtist': this.kindSearchByArtist})
         // this.$store.dispatch('smartmusic/makeFakeReq',this.textInput)   
-    },
-    closePopup () {
-        this.popupVisible = false
     },
     //при клике на input
     showPopup(el){
