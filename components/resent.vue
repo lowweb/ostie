@@ -14,13 +14,8 @@
                      </svg>
                 </button>
             </div>
-
         </div>
-        
-        <!-- <div>{{viewPort}}</div>
-        <div>{{res}}</div>
-    <div>{{first}}</div>
-    <div>{{clone}}</div> -->
+
         <ul class="resent__items" ref="resentItms" @scroll="scrollItm($event)">
             <li v-for="(item, index) of resentList" :key="index" class="resent__item" :ref="index==0 ? 'leftItm' : ''">
                 <a class="resent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank" rel="noopener noreferrer">
