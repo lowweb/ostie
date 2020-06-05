@@ -75,11 +75,11 @@ export default {
     methods: {
         scrollLeft() {
            
-            this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollLeft - this.itemWidth - this.itemGap
-            console.log(this.$refs.resentItms.scrollLeft)
-            if ( this.$refs.resentItms.scrollLeft + this.viewPort/2 == this.$refs.leftItm[0].offsetLeft + this.itemWidth/2) {
-                console.log("смешаем")
-            }
+            // this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollLeft - this.itemWidth - this.itemGap
+            // console.log(this.$refs.resentItms.scrollLeft)
+            // if ( this.$refs.resentItms.scrollLeft + this.viewPort/2 == this.$refs.leftItm[0].offsetLeft + this.itemWidth/2) {
+            //     console.log("смешаем")
+            // }
         //    if (this.$refs.resentItms.scrollLeft == 0) {
         //            console.log("ушли на центр1")
                
