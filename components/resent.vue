@@ -3,12 +3,12 @@
         
         <div class="resent__cap">Недавно искали
             <div class="resent__nav">
-                <button class="resent__nav-btn resent__nav-prev" @click="scrollLeft">
+                <button class="resent__nav-btn resent__nav-prev" @click="stepLeft">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M14.5 7L9 12.5L14.5 18" stroke="#1C9CF7" stroke-width="3"/>
                     </svg>
                 </button>
-                <button class="resent__nav-btn resent__nav-next" @click="scrollRight">
+                <button class="resent__nav-btn resent__nav-next" @click="stepRight">
                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                      <path d="M14.5 7L9 12.5L14.5 18" stroke="#1C9CF7" stroke-width="3"/>
                      </svg>
@@ -16,31 +16,28 @@
             </div>
         </div>
 
-        <ul class="resent__items" ref="resentItms" @scroll="scrollItm($event)">
-            <li v-for="(item, index) of resentList" :key="index" class="resent__item" :ref="index==0 ? 'leftItm' : ''">
+        <ul class="resent__items" ref="resentItms" @scroll.passive="scrollItm()">
+            <li v-for="(item, index) of resentList" class="resent__item"   :ref="index==Math.trunc((resentList.length)/2) ? 'leftItm' : ''">
                 <a class="resent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank" rel="noopener noreferrer">
                     <div class="resent__item-film">{{item.film}}</div>
-                    <img :src="item.imgurl" alt="poster-img">
+                    <img :src="item.imgurl" alt="poster-img"> 
                 </a>
-                
                 <div class="resent__item-song">{{item.song}}</div>
                 <div class="resent__item-artist">{{item.artist}}</div>
             </li>
-            <li v-for="(item, index)  of resentList" :key="item.id" class="resent__item" :ref="index==0 ? 'centerItm' : ''">
+            <li v-for="(item, index) of resentList" class="resent__item"  :ref="index==Math.trunc((resentList.length)/2) ? 'centrItm' : ''">
                 <a class="resent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank" rel="noopener noreferrer">
                     <div class="resent__item-film">{{item.film}}</div>
-                    <img :src="item.imgurl" alt="poster-img">
+                    <img :src="item.imgurl" alt="poster-img"> 
                 </a>
-                
                 <div class="resent__item-song">{{item.song}}</div>
                 <div class="resent__item-artist">{{item.artist}}</div>
             </li>
-            <li v-for="(item, index)  of resentList" :key="item.id" class="resent__item" :ref="index==0 ? 'rightItm' : ''">
+            <li v-for="(item, index) of resentList" class="resent__item"   :ref="index==Math.trunc((resentList.length)/2) ? 'rightItm' : ''">
                 <a class="resent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank" rel="noopener noreferrer">
                     <div class="resent__item-film">{{item.film}}</div>
-                    <img :src="item.imgurl" alt="poster-img">
+                    <img :src="item.imgurl" alt="poster-img"> 
                 </a>
-                
                 <div class="resent__item-song">{{item.song}}</div>
                 <div class="resent__item-artist">{{item.artist}}</div>
             </li>
@@ -52,11 +49,14 @@
 <script>
 export default {
     data: () => ({
-        viewPort: 0,
-        itemWidth: 0,
+        itemWidth: 0, 
         itemGap: 0,
         scroolWidth: 0,
-        curScrollPos:0,
+        viewPort: 0,
+        leftItemOffset: 0,
+        centerItemOffset: 0,
+        rightItemOffset: 0,
+        resentItem: [],
     }),
 
     computed: {
@@ -73,90 +73,89 @@ export default {
         }
     },
     methods: {
-        scrollLeft() {
-           
-            // this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollLeft - this.itemWidth - this.itemGap
-            // console.log(this.$refs.resentItms.scrollLeft)
-            // if ( this.$refs.resentItms.scrollLeft + this.viewPort/2 == this.$refs.leftItm[0].offsetLeft + this.itemWidth/2) {
-            //     console.log("смешаем")
-            // }
-        //    if (this.$refs.resentItms.scrollLeft == 0) {
-        //            console.log("ушли на центр1")
-               
-        //            this.$refs.resentItms.scrollLeft= this.$refs.cloneItm[0].offsetLeft - this.viewPort/2 + this.itemWidth/2//чтоб не сработало правило ниже 
-        //            console.log(this.$refs.resentItms.scrollLeft)    
-        //        }
-                 
-        },
-        scrollRight() {
-            // this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollLeft + this.itemWidth + this.itemGap
-            // if( this.$refs.cloneItm[0].offsetLeft <= this.$refs.resentItms.scrollLeft) {
-            //     console.log("ушли на lf")
-            //       this.$refs.resentItms.scrollLeft = 1 + this.itemWidth - this.itemGap
-            //    }
-        },
-        scrollItm(e){
-         
-            // console.log(this.$refs.resentItms.scrollLeft)
-            // if (this.$refs.resentItms.scrollLeft > this.curScrollPos) {
-            //     console.log ('rht')
-            //     this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollLeft + this.itemWidth
+        stepLeft(){   
+              if (this.centerIndex == -1) {
+                this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+              }      
+            this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollLeft - this.itemWidth - this.itemGap
+            // console.log("ll=" + (this.$refs.resentItms.scrollLeft + this.viewPort/2 ))
+            // console.log('er=' + (this.leftItemOffset + this.itemWidth/2))
+             if ((this.$refs.resentItms.scrollLeft + this.viewPort/2) <= (this.leftItemOffset + this.itemWidth/2)) {
+                    // console.log("left to rght")
+                    this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+             }
+            
+          },
+          stepRight(){
+            if (this.centerIndex == -1) {
+                this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+              }
+             this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollLeft + this.itemWidth + this.itemGap
+            //  console.log("ll=" + (this.$refs.resentItms.scrollLeft + this.viewPort/2 ))
+            // console.log('er=' + (this.rightItemOffset + this.itemWidth/2))
+             if (Math.round(this.$refs.resentItms.scrollLeft + this.viewPort/2) >= (this.rightItemOffset + this.itemWidth/2)) {
+                // console.log("rght to left ")
+                this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
 
-            // }
-                
-            // else {
-            //     console.log('lft') 
-            //     // this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollLeft - this.itemWidth
-            // }
-                   
-            // this.res = this.$refs.resentItms.scrollLeft
-            // this.first = this.$refs.firstItm[0].offsetLeft
-            // this.clone = this.$refs.cloneItm[0].offsetLeft
-            // if (this.$refs.resentItms.scrollLeft == 0) {
-               
-            //        this.$refs.resentItms.scrollLeft= this.$refs.cloneItm[0].offsetLeft - 1 //чтоб не сработало правило ниже
-                    
-            //    }
-            // if( this.$refs.cloneItm[0].offsetLeft <= this.$refs.resentItms.scrollLeft) {
-            //     this.$refs.resentItms.scrollLeft=1             
-            // }
-            // this.curScrollPos = this.$refs.resentItms.scrollLeft
-        },
-        resizeViewPort () {
-            this.itemWidth = this.$refs.centerItm[0].clientWidth
-            this.scroolWidth = this.$refs.resentItms.scrollWidth
-            this.viewPort = this.$parent.$el.clientWidth
-            this.itemGap=parseInt(window.getComputedStyle(this.$refs.centerItm[0],null).getPropertyValue("margin-right"))
-            //сместили по центру
-            this.$refs.resentItms.scrollLeft = this.$refs.centerItm[0].offsetLeft + this.itemWidth/2 - this.viewPort/2
+             }
+            
+          },
+          scrollItm(){      
+            if ((this.$refs.resentItms.scrollLeft + this.viewPort/2) <= (this.leftItemOffset + this.itemWidth/2)) {
+                // console.log("left to rght")
+                this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
 
-            //  this.$refs.resentItms.scrollLeft = ((this.scroolWidth + this.itemGap)/2 - this.viewPort)/2 - (this.itemWidth/2 + this.itemGap)
-        }
+            }    
+            if ((this.$refs.resentItms.scrollLeft + this.viewPort/2) >= (this.rightItemOffset + this.itemWidth/2)) {
+                // console.log("rght to left ")
+                this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+
+            }
+
+            for (var i =0; i< this.resentItem.length; i++){
+                if (Math.round(this.$refs.resentItms.scrollLeft + this.viewPort/2) == (this.resentItem[i].offsetLeft + this.itemWidth/2)) {
+                                this.centerIndex = i 
+                                break                             
+                            }
+                else    this.centerIndex = -1         
+            }
+
+  
+          },
+          resizeViewPort () {
+             this.itemWidth = this.$refs.centrItm[0].clientWidth
+             this.scroolWidth = this.$refs.resentItms.scrollWidth
+             this.viewPort = this.$refs.resentItms.offsetWidth //window.innerWidth
+             this.itemGap = parseInt(window.getComputedStyle(this.$refs.centrItm[0],null).getPropertyValue("margin-right"))
+             this.leftItemOffset = this.$refs.leftItm[0].offsetLeft
+             this.centrItemOffset = this.$refs.centrItm[0].offsetLeft
+             this.rightItemOffset = this.$refs.rightItm[0].offsetLeft
+             this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+            
+          }
     },
     destroyed() {
         window.removeEventListener("resize", this.resizeViewPort);
     },
-    created(){
-    },
-    mounted () {
-        this.itemWidth = this.$refs.centerItm[0].clientWidth
-        this.scroolWidth = this.$refs.resentItms.scrollWidth
-        this.viewPort = this.$parent.$el.clientWidth
-        this.itemGap=parseInt(window.getComputedStyle(this.$refs.centerItm[0],null).getPropertyValue("margin-right"))
 
+    mounted () {
+        this.itemWidth = this.$refs.centrItm[0].clientWidth
+        this.scroolWidth = this.$refs.resentItms.scrollWidth
+        this.viewPort = this.$refs.resentItms.offsetWidth //window.innerWidth this.$parent.$el.clientWidth
+        this.itemGap = parseInt(window.getComputedStyle(this.$refs.centrItm[0],null).getPropertyValue("margin-right"))
+        this.leftItemOffset = this.$refs.leftItm[0].offsetLeft
+        this.centrItemOffset = this.$refs.centrItm[0].offsetLeft
+        this.rightItemOffset = this.$refs.rightItm[0].offsetLeft
         // console.log("ofwi="+ this.viewPort)
         // console.log("scrWi=" + this.scroolWidth)
         // console.log("itmWi=" + this.itemWidth)
-        // console.log("gap=" + this.itemGap)
-
+        // console.log("itmGap=" + this.itemGap)
+        // console.log("left=" + this.leftItemOffset)
+        // console.log("centr=" + this.centrItemOffset)
+        // console.log("right=" + this.rightItemOffset)
+        this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
         window.addEventListener("resize", this.resizeViewPort);
-
-        //сместили по центру
-        this.$refs.resentItms.scrollLeft = this.$refs.centerItm[0].offsetLeft + this.itemWidth/2 - this.viewPort/2
-        // this.$refs.resentItms.scrollLeft = ((this.scroolWidth + this.itemGap)/2 - this.viewPort)/2 - (this.itemWidth/2 + this.itemGap)
-        // this.curScrollPos = this.$refs.resentItms.scrollLeft
-        // console.log(this.curScrollPos)
-
+        this.resentItem = this.$refs.resentItms.querySelectorAll('.resent__item')
     }
 
 }
@@ -177,7 +176,7 @@ export default {
         margin: 0 auto;
         width: 100%;
         -ms-overflow-style: none;
-        //-webkit-overflow-scrolling: touch;
+        // -webkit-overflow-scrolling: touch;
     	&::-webkit-scrollbar{
      		display: none;  
 		}
@@ -306,6 +305,7 @@ export default {
         }
 
         &-next {
+            margin-left: 20px;
             transform: scaleX(-1);
         }
     }
