@@ -6,7 +6,7 @@
     <search />
     <resultMovie />
   </div> 
-<resent />
+<recent />
   <Footer />       
 </main>        
  
@@ -16,13 +16,13 @@
 
 <script>
 import Search from '~/components/search.vue'
-import Resent from '~/components/resent.vue'
+import Recent from '~/components/recent.vue'
 import ResultMovie from '~/components/resultMovie.vue'
 import Title from '~/components/title.vue'
 import Footer from '~/components/footer.vue'
 export default {
     async fetch ({store}) {
-        await store.dispatch("resent/getResentData")
+        await store.dispatch("recent/getRecentData")
     },
     methods: {
       hideSmartSearch() {
@@ -31,7 +31,7 @@ export default {
     },
     components: {
     Search,
-    Resent,
+    Recent,
     ResultMovie,
     Title,
     Footer
@@ -48,7 +48,7 @@ main{
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding-top: 80px;
+  padding-top: 40px;
   min-height: 100vh;
 }
 .main--noscroll{

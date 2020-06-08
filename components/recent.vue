@@ -1,14 +1,14 @@
 <template>
-    <div class="resent" v-show="isShownResentBlock" >
+    <div class="recent" v-show="isShownrecentBlock" >
         
-        <div class="resent__cap">Недавно искали
-            <div class="resent__nav">
-                <button class="resent__nav-btn resent__nav-prev" @click="stepLeft" aria-label="previous item">
+        <div class="recent__cap">Недавно искали
+            <div class="recent__nav">
+                <button class="recent__nav-btn recent__nav-prev" @click="stepLeft" aria-label="previous item">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M14.5 7L9 12.5L14.5 18" stroke="#1C9CF7" stroke-width="3"/>
                     </svg>
                 </button>
-                <button class="resent__nav-btn resent__nav-next" @click="stepRight" aria-label="next item">
+                <button class="recent__nav-btn recent__nav-next" @click="stepRight" aria-label="next item">
                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                      <path d="M14.5 7L9 12.5L14.5 18" stroke="#1C9CF7" stroke-width="3"/>
                      </svg>
@@ -16,30 +16,30 @@
             </div>
         </div>
 
-        <ul class="resent__items" ref="resentItms" @scroll.passive="scrollItm()">
-            <li v-for="(item, index) of resentList" class="resent__item"   :ref="index==Math.trunc((resentList.length)/2) ? 'leftItm' : ''">
-                <a class="resent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank" rel="noopener noreferrer">
-                    <div class="resent__item-film">{{item.film}}</div>
+        <ul class="recent__items" ref="recentItms" @scroll.passive="scrollItm()">
+            <li v-for="(item, index) of recentList" class="recent__item"   :ref="index==Math.trunc((recentList.length)/2) ? 'leftItm' : ''">
+                <a class="recent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank" rel="noopener noreferrer">
+                    <div class="recent__item-film">{{item.film}}</div>
                     <img :src="item.imgurl" alt="poster-img"> 
                 </a>
-                <div class="resent__item-song">{{item.song}}</div>
-                <div class="resent__item-artist">{{item.artist}}</div>
+                <div class="recent__item-song">{{item.song}}</div>
+                <div class="recent__item-artist">{{item.artist}}</div>
             </li>
-            <li v-for="(item, index) of resentList" class="resent__item"  :ref="index==Math.trunc((resentList.length)/2) ? 'centrItm' : ''">
-                <a class="resent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank" rel="noopener noreferrer">
-                    <div class="resent__item-film">{{item.film}}</div>
+            <li v-for="(item, index) of recentList" class="recent__item"  :ref="index==Math.trunc((recentList.length)/2) ? 'centrItm' : ''">
+                <a class="recent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank" rel="noopener noreferrer">
+                    <div class="recent__item-film">{{item.film}}</div>
                     <img :src="item.imgurl" alt="poster-img"> 
                 </a>
-                <div class="resent__item-song">{{item.song}}</div>
-                <div class="resent__item-artist">{{item.artist}}</div>
+                <div class="recent__item-song">{{item.song}}</div>
+                <div class="recent__item-artist">{{item.artist}}</div>
             </li>
-            <li v-for="(item, index) of resentList" class="resent__item"   :ref="index==Math.trunc((resentList.length)/2) ? 'rightItm' : ''">
-                <a class="resent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank" rel="noopener noreferrer">
-                    <div class="resent__item-film">{{item.film}}</div>
+            <li v-for="(item, index) of recentList" class="recent__item"   :ref="index==Math.trunc((recentList.length)/2) ? 'rightItm' : ''">
+                <a class="recent__item-img" :href="'https://www.imdb.com'+item.movieurl" target="_blank" rel="noopener noreferrer">
+                    <div class="recent__item-film">{{item.film}}</div>
                     <img :src="item.imgurl" alt="poster-img"> 
                 </a>
-                <div class="resent__item-song">{{item.song}}</div>
-                <div class="resent__item-artist">{{item.artist}}</div>
+                <div class="recent__item-song">{{item.song}}</div>
+                <div class="recent__item-artist">{{item.artist}}</div>
             </li>
         </ul>
         
@@ -56,15 +56,15 @@ export default {
         leftItemOffset: 0,
         centerItemOffset: 0,
         rightItemOffset: 0,
-        resentItem: [],
+        recentItem: [],
     }),
 
     computed: {
-        resentList() {
-            //  return this.$store.getters['resent/resentList']
-             return this.$store.state.resent.resentSearch
+        recentList() {
+            //  return this.$store.getters['recent/recentList']
+             return this.$store.state.recent.recentSearch
         },
-        isShownResentBlock() {
+        isShownrecentBlock() {
             if (this.$store.state.resultmovie.data.results != undefined || this.$store.state.resultmovie.inProgress == true)
                 return false
             else
@@ -76,45 +76,45 @@ export default {
         stepLeft(){   
               if (this.centerIndex == -1) {
                 // this.centerIndex == 0  
-                this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+                this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
               }      
-            this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollLeft - this.itemWidth - this.itemGap
-            // console.log("ll=" + (this.$refs.resentItms.scrollLeft + this.viewPort/2 ))
+            this.$refs.recentItms.scrollLeft = this.$refs.recentItms.scrollLeft - this.itemWidth - this.itemGap
+            // console.log("ll=" + (this.$refs.recentItms.scrollLeft + this.viewPort/2 ))
             // console.log('er=' + (this.leftItemOffset + this.itemWidth/2))
-             if ((this.$refs.resentItms.scrollLeft + this.viewPort/2) <= (this.leftItemOffset + this.itemWidth/2)) {
+             if ((this.$refs.recentItms.scrollLeft + this.viewPort/2) <= (this.leftItemOffset + this.itemWidth/2)) {
                     // console.log("left to rght")
-                    this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+                    this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
              }
             
           },
           stepRight(){
             if (this.centerIndex == -1) {
-                this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+                this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
               }
-             this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollLeft + this.itemWidth + this.itemGap
-            //  console.log("ll=" + (this.$refs.resentItms.scrollLeft + this.viewPort/2 ))
+             this.$refs.recentItms.scrollLeft = this.$refs.recentItms.scrollLeft + this.itemWidth + this.itemGap
+            //  console.log("ll=" + (this.$refs.recentItms.scrollLeft + this.viewPort/2 ))
             // console.log('er=' + (this.rightItemOffset + this.itemWidth/2))
-             if (Math.round(this.$refs.resentItms.scrollLeft + this.viewPort/2) >= (this.rightItemOffset + this.itemWidth/2)) {
+             if (Math.round(this.$refs.recentItms.scrollLeft + this.viewPort/2) >= (this.rightItemOffset + this.itemWidth/2)) {
                 // console.log("rght to left ")
-                this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+                this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
 
              }
             
           },
           scrollItm(){
                    
-            if ((this.$refs.resentItms.scrollLeft + this.viewPort/2) <= (this.leftItemOffset + this.itemWidth/2)) {
+            if ((this.$refs.recentItms.scrollLeft + this.viewPort/2) <= (this.leftItemOffset + this.itemWidth/2)) {
                 // console.log("left to rght")
-                this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+                this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
 
             }    
-            if ((this.$refs.resentItms.scrollLeft + this.viewPort/2) >= (this.rightItemOffset + this.itemWidth/2)) {
+            if ((this.$refs.recentItms.scrollLeft + this.viewPort/2) >= (this.rightItemOffset + this.itemWidth/2)) {
                 // console.log("rght to left ")
-                this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+                this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
 
             }
-            for (var i =0; i< this.resentItem.length; i++){
-                if (Math.round(this.$refs.resentItms.scrollLeft + this.viewPort/2) == (this.resentItem[i].offsetLeft + this.itemWidth/2)) {
+            for (var i =0; i< this.recentItem.length; i++){
+                if (Math.round(this.$refs.recentItms.scrollLeft + this.viewPort/2) == (this.recentItem[i].offsetLeft + this.itemWidth/2)) {
                                 this.centerIndex = i 
                                 break                             
                             }
@@ -127,13 +127,13 @@ export default {
           },
           resizeViewPort () {
              this.itemWidth = this.$refs.centrItm[0].clientWidth
-             this.scroolWidth = this.$refs.resentItms.scrollWidth
-             this.viewPort = this.$refs.resentItms.offsetWidth //window.innerWidth
+             this.scroolWidth = this.$refs.recentItms.scrollWidth
+             this.viewPort = this.$refs.recentItms.offsetWidth //window.innerWidth
              this.itemGap = parseInt(window.getComputedStyle(this.$refs.centrItm[0],null).getPropertyValue("margin-right"))
              this.leftItemOffset = this.$refs.leftItm[0].offsetLeft
              this.centrItemOffset = this.$refs.centrItm[0].offsetLeft
              this.rightItemOffset = this.$refs.rightItm[0].offsetLeft
-             this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+             this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
             
           }
     },
@@ -143,8 +143,8 @@ export default {
 
     mounted () {
         this.itemWidth = this.$refs.centrItm[0].clientWidth
-        this.scroolWidth = this.$refs.resentItms.scrollWidth
-        this.viewPort = this.$refs.resentItms.offsetWidth //window.innerWidth this.$parent.$el.clientWidth
+        this.scroolWidth = this.$refs.recentItms.scrollWidth
+        this.viewPort = this.$refs.recentItms.offsetWidth //window.innerWidth this.$parent.$el.clientWidth
         this.itemGap = parseInt(window.getComputedStyle(this.$refs.centrItm[0],null).getPropertyValue("margin-right"))
         this.leftItemOffset = this.$refs.leftItm[0].offsetLeft
         this.centrItemOffset = this.$refs.centrItm[0].offsetLeft
@@ -156,17 +156,17 @@ export default {
         // console.log("left=" + this.leftItemOffset)
         // console.log("centr=" + this.centrItemOffset)
         // console.log("right=" + this.rightItemOffset)
-        this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+        this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
         window.addEventListener("resize", this.resizeViewPort);
-        this.resentItem = this.$refs.resentItms.querySelectorAll('.resent__item')
+        this.recentItem = this.$refs.recentItms.querySelectorAll('.recent__item')
     }
 
 }
 </script>
 
 <style lang="scss">
-.resent {
-    margin-bottom: 146px;
+.recent {
+    margin-bottom: 100px;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -315,7 +315,7 @@ export default {
 }
 
 @media screen and (max-width: 800px) {
-.resent {
+.recent {
     &__cap {
         padding: 0 24px;
     }
@@ -324,7 +324,7 @@ export default {
 }
 
 @media screen and (max-width: 680px) {
-.resent {
+.recent {
     margin-bottom: 80px;
     &__cap {
         font-size: 20px;

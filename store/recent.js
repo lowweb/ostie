@@ -1,17 +1,17 @@
 export const state = () => ({
-    resentSearch: []
+    recentSearch: []
 })
 
 export const mutations = {
     add(state, data) {
-        state.resentSearch = data
+        state.recentSearch = data
     }
 }
 
 
 export const actions = {
-    async getResentData({commit}) {
-      await this.$axios.get('/resent')
+    async getRecentData({commit}) {
+      await this.$axios.get('/recent')
             .then((res) => {
               if (res.status === 200) {
                 commit('add', res.data.results)
