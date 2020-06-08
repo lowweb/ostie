@@ -11,7 +11,6 @@ Clean-param: utm_source&utm_medium&utm_term&utm_content&utm_campaign&yclid&gclid
 Crawl-Delay: 5
 
 User-agent: Googlebot
-Disallow: /*.txt
 Allow: /*/_nuxt/*.css
 Allow: /*/_nuxt/*.js
 Allow: /*/_nuxt/img/*.jpg
