@@ -3,12 +3,12 @@
         
         <div class="resent__cap">Недавно искали
             <div class="resent__nav">
-                <button class="resent__nav-btn resent__nav-prev" @click="stepLeft">
+                <button class="resent__nav-btn resent__nav-prev" @click="stepLeft" aria-label="previous item">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M14.5 7L9 12.5L14.5 18" stroke="#1C9CF7" stroke-width="3"/>
                     </svg>
                 </button>
-                <button class="resent__nav-btn resent__nav-next" @click="stepRight">
+                <button class="resent__nav-btn resent__nav-next" @click="stepRight" aria-label="next item">
                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                      <path d="M14.5 7L9 12.5L14.5 18" stroke="#1C9CF7" stroke-width="3"/>
                      </svg>
@@ -75,6 +75,7 @@ export default {
     methods: {
         stepLeft(){   
               if (this.centerIndex == -1) {
+                // this.centerIndex == 0  
                 this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
               }      
             this.$refs.resentItms.scrollLeft = this.$refs.resentItms.scrollLeft - this.itemWidth - this.itemGap
@@ -100,7 +101,8 @@ export default {
              }
             
           },
-          scrollItm(){      
+          scrollItm(){
+                   
             if ((this.$refs.resentItms.scrollLeft + this.viewPort/2) <= (this.leftItemOffset + this.itemWidth/2)) {
                 // console.log("left to rght")
                 this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
@@ -111,14 +113,15 @@ export default {
                 this.$refs.resentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
 
             }
-
             for (var i =0; i< this.resentItem.length; i++){
                 if (Math.round(this.$refs.resentItms.scrollLeft + this.viewPort/2) == (this.resentItem[i].offsetLeft + this.itemWidth/2)) {
                                 this.centerIndex = i 
                                 break                             
                             }
                 else    this.centerIndex = -1         
-            }
+            } 
+
+            
 
   
           },

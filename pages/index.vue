@@ -3,12 +3,8 @@
      
  <div class="container">
  <Title />     
-    <!-- <searchType /> -->
     <search />
-    <!-- <smartMusic /> -->
-
     <resultMovie />
-    
   </div> 
 <resent />
   <Footer />       
@@ -19,13 +15,11 @@
 </template>
 
 <script>
-import searchType from '~/components/search-type.vue'
 import Search from '~/components/search.vue'
 import Resent from '~/components/resent.vue'
 import ResultMovie from '~/components/resultMovie.vue'
 import Title from '~/components/title.vue'
 import Footer from '~/components/footer.vue'
-// import smartMusic from '~/components/smartMusic.vue'
 export default {
     async fetch ({store}) {
         await store.dispatch("resent/getResentData")
@@ -36,7 +30,6 @@ export default {
       }
     },
     components: {
-    searchType,
     Search,
     Resent,
     ResultMovie,
