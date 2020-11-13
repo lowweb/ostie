@@ -3,4 +3,6 @@ Disallow: *?
 Disallow: /_nuxt
 Allow: /_nuxt*.js
 Allow: /_nuxt*.css
+Crawl-Delay: 5
+
 Host: https://ostie.org
