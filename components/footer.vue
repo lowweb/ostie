@@ -1,6 +1,6 @@
 <template>
     <footer class="foo">
-            <div class="foo__copyr">Ostie © 2015–2020</div>
+            <div class="foo__copyr">Ostie © 2015–{{currentYear}}</div>
             <a href="" class="foo__about link" :class="isShowInfo==true ? 'link--disable': ''" @click.prevent="showInfo">О проекте</a> 
             <a href="https://telegram.im/@ostie_org" rel="noopener noreferrer" target="_blank" class="foo__social link">Ostie в Telegram</a>
         <div class="foo__about-info" :class="isShowInfo ? 'foo__about-info--show' : ''">
@@ -18,7 +18,8 @@
 <script>
 export default {
     data: () => ({
-        isShowInfo: false
+        isShowInfo: false,
+        currentYear: new Date().getFullYear()
     }),
     methods: {
         showInfo (el) {
