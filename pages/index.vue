@@ -2,6 +2,7 @@
 <main @click="hideSmartSearch">
      
  <div class="container">
+ <LangSwitch />  
  <Title />     
     <search />
     <resultMovie />
@@ -20,6 +21,7 @@ import Recent from '~/components/recent.vue'
 import ResultMovie from '~/components/resultMovie.vue'
 import Title from '~/components/title.vue'
 import Footer from '~/components/footer.vue'
+import LangSwitch from '~/components/langSwitch.vue'
 export default {
     async fetch ({store}) {
         await store.dispatch("recent/getRecentData")
@@ -34,7 +36,8 @@ export default {
     Recent,
     ResultMovie,
     Title,
-    Footer
+    Footer,
+    LangSwitch
     // smartMusic
   }
 }

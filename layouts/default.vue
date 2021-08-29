@@ -29,10 +29,10 @@ body {
     text-decoration: none;
     color: #1C9CF7;
     cursor: pointer;
+    display: inline-block;
 
     &:hover {
       color: #FF2B67;
-      border: none;
 
       & svg path {
         stroke: #FF2B67;
@@ -47,11 +47,17 @@ body {
         color: #051923;
       }
     }
+
+    &--br {
+    border-bottom: 1px dashed #1C9CF7;
+
+    &:hover {
+      border-bottom: 1px dashed transparent;
+    }
+}
 }
 
-.link--br {
-    border-bottom: 1px dashed #1C9CF7;
-}
+
 li{
   list-style-type: none;
 }
@@ -60,5 +66,8 @@ li{
   // height: 100%; 
 }
 
+a {
+  text-decoration: none;
+}
 
 </style>

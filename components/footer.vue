@@ -1,15 +1,15 @@
 <template>
     <footer class="foo">
             <div class="foo__copyr">Ostie © 2015–{{currentYear}}</div>
-            <a href="" class="foo__about link" :class="isShowInfo==true ? 'link--disable': ''" @click.prevent="showInfo">О проекте</a> 
-            <a href="https://telegram.im/@ostie_org" rel="noopener noreferrer" target="_blank" class="foo__social link">Ostie в Telegram</a>
+            <a href="" class="foo__about link" :class="isShowInfo==true ? 'link--disable': ''" @click.prevent="showInfo">{{$t('footer.aboutLink')}}</a> 
+            <a href="https://telegram.im/@ostie_org" rel="noopener noreferrer" target="_blank" class="foo__social link">{{$t('footer.telegram')}}</a>
         <div class="foo__about-info" :class="isShowInfo ? 'foo__about-info--show' : ''">
             <svg @click.prevent="hideInfo" class="foo__about-info-arr" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path  d="M9.5 7L15 12.5L9.5 18" stroke="#C4C4C4" stroke-width="3"/>
             </svg>
 
-            <div class="foo__about-cap">Где играла эта песня? 🤔</div>
-            <div class="foo__about-text">В хорошем кино – хороший саундтрек. Ostie помогает найти фильмы и сериалы по имени артиста или названию композиции. Если вам хочется узнать, в каком фильме звучала та самая песня или в создании саундтрека к какому сериалу принимала участие ваша любимая группа – Ostie поможет.</div>
+            <div class="foo__about-cap">{{$t('footer.aboutCap')}} 🤔</div>
+            <div class="foo__about-text">{{$t('footer.aboutText')}}</div>
         </div>
         
        

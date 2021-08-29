@@ -1,7 +1,7 @@
 <template>
-    <div class="recent" v-show="isShownrecentBlock" >
+    <div class="recent" v-show="isShownrecentBlock">
         
-        <div class="recent__cap">Недавно искали
+        <div class="recent__cap">{{$t('resent')}}
             <div class="recent__nav">
                 <button class="recent__nav-btn recent__nav-prev" @click="stepLeft" aria-label="previous item">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,7 +62,7 @@ export default {
     computed: {
         recentList() {
             //  return this.$store.getters['recent/recentList']
-             return this.$store.state.recent.recentSearch
+             return this.$store.state.recent.recentSearch 
         },
         isShownrecentBlock() {
             if (this.$store.state.resultmovie.data.results != undefined || this.$store.state.resultmovie.inProgress == true)

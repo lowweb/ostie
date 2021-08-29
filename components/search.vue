@@ -13,18 +13,18 @@
         </div>
          
         <div class="search__foo"> 
-            <div class="search__like">Например, <a class="link link--br" href="#" @click="sampleRequest(sampleRequestArtist,sampleRequestSong)">{{sampleRequestText}}</a></div>
+            <div class="search__like">{{$t('search.eg')}} <a class="link link--br" href="#" @click="sampleRequest(sampleRequestArtist,sampleRequestSong)">{{sampleRequestText}}</a></div>
             <div class="search__params">
                 
                 <span class="search__params-text" :class="{'search__params-text--active': kindSearchByArtist }">
                     <checkmark class="search__checkmark" :class="{'search__checkmark--active': kindSearchByArtist }"/>
-                    Искать по исполнителю
+                    {{$t('search.toogle.byArtist')}}
                 </span>
                 <toogleSwitch class="search__params-toogle" @changeSearchType="toogleSearchType"></toogleSwitch>
                 
                 <span class="search__params-text" :class="{'search__params-text--active': !kindSearchByArtist }">
                     <checkmark class="search__checkmark" :class="{'search__checkmark--active': !kindSearchByArtist }"/>
-                    Искать по треку
+                    {{$t('search.toogle.bySong')}}
                 </span>
             </div>
             
@@ -89,7 +89,7 @@ export default {
                 return ''
             }
             else {
-                return (!this.kindSearchByArtist) ? 'Введите название песни' : 'Введите название исполнителя'
+                return (!this.kindSearchByArtist) ? this.$t('search.placeholder.bySong') : this.$t('search.placeholder.byArtist')
             }
         },
         set() {
@@ -353,7 +353,7 @@ export default {
             font-style: normal;
             font-weight: normal;
             font-size: 16px;
-            line-height: 24px;
+            line-height: 23px;
             color: #403F4C;
         }
 

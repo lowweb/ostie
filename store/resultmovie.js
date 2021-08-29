@@ -21,8 +21,8 @@ export const state = () => ({
 }
 
 export const actions = {
-    async makeRequest({commit},searchObj,) {
-      // console.log(searchObj)
+    async makeRequest({commit},searchObj) {
+      // console.log(error)
       await this.$axios.get('/search?', {
             params: {
                 'media': 'movie',
@@ -37,8 +37,9 @@ export const actions = {
                 commit('changeProgress', false)
               }
             })
-            .catch(e => {
-                console.log(e)
-            })
+            .catch((e) => {
+              // console.log(this.app)
+              this.app.context.error({ statusCode: e.status, message: e.message });
+            });
     }
 }

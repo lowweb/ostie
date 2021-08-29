@@ -1,25 +1,25 @@
 <template>
   <div class="result" v-show="isShownResBlock">
-    <div class="result__count-art">Найдено артистов: {{resultMovieData.resultsCount}}</div>
+    <div class="result__count-art">{{$t('result.countArtist')}} {{resultMovieData.resultsCount}}</div>
     <div class="result__block" v-if="resultMovieData.resultsCount == 0 && searchByArtist">
         <div class="result__block-info">
-            Кажется, нет ни одного фильма с таким саундтреком... Попробуйте <a class="link link--brd" @click.prevent="switchTosong">поискать по названию трека</a>
+            {{$t('result.byArtist.nullResult')}} <a class="link link--br" @click.prevent="switchTosong">{{$t('result.byArtist.nullResultLinkText')}}</a>
         </div>
     </div>
     <div class="result__block" v-if="resultMovieData.resultsCount == 0 && !searchByArtist">
         <div class="result__block-info">
-            Не удалось найти ни одного саундтрека к фильму... Попробуйте <a class="link link--brd" @click.prevent="newSongSearch">поискать по другому треку</a>
+            {{$t('result.bySong.nullResult')}} <a class="link link--br" @click.prevent="newSongSearch">{{$t('result.bySong.nullResultLinkText')}}</a>
         </div>
     </div>
     
     <div class="result__block" v-for="resRow in resultMovieData.results">
         
-        <div v-if="resRow.artistData.length > 0 && searchByArtist" class="result__block-artist">{{resRow.artist}} можно услышать в этих фильмах<span></span></div>
-        <div v-if="resRow.artistData.length > 0 && !searchByArtist" class="result__block-artist">{{resRow.artist}} {{songName}} можно услышать в этих фильмах<span></span></div>
+        <div v-if="resRow.artistData.length > 0 && searchByArtist" class="result__block-artist">{{$t('result.cap', {what: resRow.artist})}}<span></span></div>
+        <div v-if="resRow.artistData.length > 0 && !searchByArtist" class="result__block-artist">{{$t('result.cap', {what: resRow.artist + ' - ' + songName})}}<span></span></div>
 
         <!-- <div v-if="resRow.artistData.length > 0" class="result__block-artist">{{resRow.artist}} можно услышать в этих фильмах<span></span></div> -->
-        <div class="result__block-info" v-if="resRow.artistData.length == 0">У {{resRow.artist}} нет саундтрека по выбранной композиции. 
-            <div>Попробуйте найти фильмы <a class="link link--brd" @click.prevent="searchAll(resRow.artist,'')">по исполнителю</a></div>
+        <div class="result__block-info" v-if="resRow.artistData.length == 0">{{$t('result.bySong.nullResultForSong', {artistName: resRow.artist})}} 
+            <a class="link link--br" @click.prevent="searchAll(resRow.artist,'')">{{$t('result.bySong.nullResultForSongLinkText')}}</a>
         </div>
 
         <ol class="result__list" :class="[Object.keys(resRow.artistData).length > 10 ? 'result__list--wspoiler' : '']">
@@ -28,16 +28,16 @@
             <span class="result__list-index">{{index + 1}}</span>
            <a @click="saveToRecent(artRow.mName,artRow.mYear,artRow.mLink)" class="link result__list-itm-lnk" :href="rootSite + artRow.mLink" :class="{'result__list-itm-lnk--mp': searchByArtist}" target="_blank" rel="noopener noreferrer">{{artRow.mName}} ({{artRow.mYear}})</a>
            <div class="result__episodes" v-if="Object.keys(artRow.mEpisodes).length > 0">
-               В эпизодах:
+               {{$t('result.episodes')}}
                <span v-for="(epItm, index) in artRow.mEpisodes" class="result__episodes-itm">{{epItm.epName}}{{index==artRow.mEpisodes.length-1 ? '' : ', '}}</span>
            </div>
            <div class="result__songs" v-if="artRow.mSongs != undefined">
-               Звучит:
+               {{$t('result.songs')}}
                <span v-for="(song,index) in artRow.mSongs" class="result__songs-itm">{{song}}{{index==artRow.mSongs.length-1 ? '' : ', '}}</span>
            </div>
         </li>
         </ol>
-        <div @click="showSpoiler" class="result__spoiler link link-brd">Показать больше результатов</div>
+        <div @click="showSpoiler" class="result__spoiler link link--br">{{$t('result.spoiler')}}</div>
         
     </div>
   </div>
@@ -128,7 +128,8 @@ methods: {
         song: this.$store.state.search.whatSearch['song'] ,
         film: film,
         year: year,
-        link: link
+        link: link,
+        locale: this.$i18n.locale
       }
     this.$axios.post('/recent', this.postRecentData)
         .then(function (response) {
@@ -182,6 +183,8 @@ methods: {
 
     &__spoiler {
         display: none;
+        width: max-content;
+        margin: 0 auto;
         
     }
 
@@ -208,6 +211,10 @@ methods: {
         line-height: 24px;
         position: relative;
         border-bottom: 1px solid #F0F1F2;
+
+        &:last-child {
+            border-bottom: none;
+        }
 
         &--hide {
             height: 0px;

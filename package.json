@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.2",
-    "nuxt": "^2.14.7"
+    "nuxt": "^2.14.7",
+    "nuxt-i18n": "^6.28.1"
   },
   "devDependencies": {
     "@nuxtjs/google-analytics": "^2.4.0",

@@ -1,3 +1,4 @@
+import { i18n } from './locales/i18n-nuxt-config'
 
 export default {
   server: {
@@ -65,7 +66,8 @@ export default {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    ['nuxt-i18n', i18n]
   ],
   /*
   ** Axios module configuration

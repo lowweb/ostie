@@ -76,7 +76,7 @@ methods: {
     selectItem(index) {
         let selectItemName = this.getItemByIndex(index)['artistName']
         let selectItemSong = this.getItemByIndex(index)['trackName']
-        console.log ('wht='+ this.getItemByIndex(index))
+        // console.log ('wht='+ this.getItemByIndex(index))
         //переназначили input на исполнителя, песня
         if(selectItemSong == undefined) {
             selectItemSong = ''
