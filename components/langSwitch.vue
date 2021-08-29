@@ -26,7 +26,6 @@ export default {
   align-items: center;
   justify-content: flex-end;
   margin-bottom: 24px;
-  gap: 12px;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -43,6 +42,11 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 12px;
+
+    &:last-child{
+      margin-right: 0;
+    }
 
     &--active {
       position: relative;
