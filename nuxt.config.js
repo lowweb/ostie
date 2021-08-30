@@ -14,7 +14,7 @@ export default {
       lang: 'ru',
     },
     // title: 'process.env.npm_package_name || ''',
-    title: 'Фильм и сериал по саундтреку.',
+    title: 'Поиск фильмов и сериалов по саундтреку.',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
