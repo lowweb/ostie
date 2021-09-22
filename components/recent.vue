@@ -244,7 +244,7 @@ export default {
                 box-shadow: 2px 10px 16px rgba(0, 114, 194, 0.4);
             }
             &:hover img {
-                height: 165%;
+                width: 120%;
                 transition: height 0.3s, width 0.3s;
             }
 
