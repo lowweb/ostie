@@ -235,8 +235,8 @@ export default {
                 top: 50%;
                 left: 0;
                 transform: translate(0, -50%);
-                height: 135%;
-                width: auto;
+                height: auto;
+                width: 115%;
                 transition: height 0.3s, width 0.3s;
                 
             }

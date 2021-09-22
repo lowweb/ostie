@@ -31,6 +31,8 @@ export default {
   font-size: 16px;
   line-height: 23px;
   color: #403F4C;
+  background-color: #ffffff;
+  z-index: 3;
 
   @media screen and (max-width: 680px) {
     margin-bottom: 8px;
