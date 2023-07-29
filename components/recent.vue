@@ -47,6 +47,8 @@
 </template>
 
 <script>
+import anime from '../node_modules/animejs/lib/anime.es.js';
+
 export default {
     data: () => ({
         itemWidth: 0, 
@@ -76,29 +78,55 @@ export default {
         stepLeft(){   
               if (this.centerIndex == -1) {
                 // this.centerIndex == 0  
-                this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+                // this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+                this.scrollFrom = this.$refs.recentItms.scrollLeft
+                this.scrollTo = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
               }      
-            this.$refs.recentItms.scrollLeft = this.$refs.recentItms.scrollLeft - this.itemWidth - this.itemGap
+            // this.$refs.recentItms.scrollLeft = this.$refs.recentItms.scrollLeft - this.itemWidth - this.itemGap
+            this.scrollFrom = this.$refs.recentItms.scrollLeft
+            this.scrollTo = this.$refs.recentItms.scrollLeft - this.itemWidth - this.itemGap
             // console.log("ll=" + (this.$refs.recentItms.scrollLeft + this.viewPort/2 ))
             // console.log('er=' + (this.leftItemOffset + this.itemWidth/2))
              if ((this.$refs.recentItms.scrollLeft + this.viewPort/2) <= (this.leftItemOffset + this.itemWidth/2)) {
                     // console.log("left to rght")
                     this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+                    this.scrollFrom = this.$refs.recentItms.scrollLeft
+                    this.scrollTo = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
              }
             
+            anime.timeline({loop: false})
+                .add({
+                    targets: '.recent__items',
+                    scrollLeft: [this.scrollFrom, this.scrollTo],
+                    easing: 'linear',
+                    duration: 500
+                })
           },
           stepRight(){
             if (this.centerIndex == -1) {
-                this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+                // this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+                this.scrollFrom = this.$refs.recentItms.scrollLeft
+                this.scrollTo = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
               }
-             this.$refs.recentItms.scrollLeft = this.$refs.recentItms.scrollLeft + this.itemWidth + this.itemGap
+            //  this.$refs.recentItms.scrollLeft = this.$refs.recentItms.scrollLeft + this.itemWidth + this.itemGap
+             this.scrollFrom = this.$refs.recentItms.scrollLeft
+             this.scrollTo = this.$refs.recentItms.scrollLeft + this.itemWidth + this.itemGap
             //  console.log("ll=" + (this.$refs.recentItms.scrollLeft + this.viewPort/2 ))
             // console.log('er=' + (this.rightItemOffset + this.itemWidth/2))
              if (Math.round(this.$refs.recentItms.scrollLeft + this.viewPort/2) >= (this.rightItemOffset + this.itemWidth/2)) {
                 // console.log("rght to left ")
-                this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+                // this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+                this.scrollFrom = this.$refs.recentItms.scrollLeft
+                this.scrollTo = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
 
              }
+             anime.timeline({loop: false})
+                .add({
+                    targets: '.recent__items',
+                    scrollLeft: [this.scrollFrom, this.scrollTo],
+                    easing: 'linear',
+                    duration: 500
+                })
             
           },
           scrollItm(){
@@ -106,11 +134,29 @@ export default {
             if ((this.$refs.recentItms.scrollLeft + this.viewPort/2) <= (this.leftItemOffset + this.itemWidth/2)) {
                 // console.log("left to rght")
                 this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
-
+                this.scrollFrom = this.$refs.recentItms.scrollLeft
+                this.scrollTo = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+                anime.timeline({loop: false})
+                .add({
+                    targets: '.recent__items',
+                    scrollLeft: [this.scrollFrom, this.scrollTo],
+                    easing: 'linear',
+                    duration: 500
+                })
             }    
             if ((this.$refs.recentItms.scrollLeft + this.viewPort/2) >= (this.rightItemOffset + this.itemWidth/2)) {
                 // console.log("rght to left ")
                 this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+                this.scrollFrom = this.$refs.recentItms.scrollLeft
+                this.scrollTo = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
+
+                anime.timeline({loop: false})
+                .add({
+                    targets: '.recent__items',
+                    scrollLeft: [this.scrollFrom, this.scrollTo],
+                    easing: 'linear',
+                    duration: 500
+                })
 
             }
             for (var i =0; i< this.recentItem.length; i++){
@@ -120,9 +166,6 @@ export default {
                             }
                 else    this.centerIndex = -1         
             } 
-
-            
-
   
           },
           resizeViewPort () {
@@ -159,6 +202,7 @@ export default {
         this.$refs.recentItms.scrollLeft = this.centrItemOffset - this.viewPort/2 + this.itemWidth/2
         window.addEventListener("resize", this.resizeViewPort);
         this.recentItem = this.$refs.recentItms.querySelectorAll('.recent__item')
+
     }
 
 }
