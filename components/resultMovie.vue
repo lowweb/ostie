@@ -24,8 +24,8 @@
 
         <ol class="result__list" :class="[Object.keys(resRow.artistData).length > 10 ? 'result__list--wspoiler' : '']">
         <li  class="result__list-itm" :class="index >= 10 ? 'result__list-itm--hide' : ''" v-for="(artRow,index) in resRow.artistData" @key="index">
-            <!-- <img class="movie__poster" :src="artRow.mPoster"> -->
-            <span class="result__list-index">{{index + 1}}</span>
+            <img class="result__list-itm-img" :src="artRow.mPoster=='null' ? nopicImgPath : artRow.mPoster">
+            <!-- <span class="result__list-index">{{index + 1}}</span> -->
            <a @click="saveToRecent(artRow.mName,artRow.mYear,artRow.mLink)" class="link result__list-itm-lnk" :href="rootSite + artRow.mLink" :class="{'result__list-itm-lnk--mp': searchByArtist}" target="_blank" rel="noopener noreferrer">{{artRow.mName}} ({{artRow.mYear}})</a>
            <div class="result__episodes" v-if="Object.keys(artRow.mEpisodes).length > 0">
                {{$t('result.episodes')}}
@@ -47,7 +47,8 @@
 export default {
 data: () => ({
     rootSite: 'https://www.imdb.com',
-    postRecentData: undefined
+    postRecentData: undefined,
+    nopicImgPath: require('@/assets/img-nopic.png')
     
 }),
 computed: {
@@ -201,9 +202,9 @@ methods: {
         margin-top: 16px;
     }
     &__list-itm {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
+        // display: flex;
+        // flex-wrap: wrap;
+        // align-items: center;
         font-family: 'Roboto', sans-serif;
         font-style: normal;
         font-weight: normal;
@@ -211,6 +212,14 @@ methods: {
         line-height: 24px;
         position: relative;
         border-bottom: 1px solid #F0F1F2;
+        padding: 10px 64px 10px 0px;
+        display: grid;
+        grid-template-areas: "image name"
+                              "image songs";
+        grid-template-columns: max-content 1fr;
+        grid-template-rows: max-content 1fr;
+        // grid-auto-rows: 20px;
+        grid-column-gap: 25px;
 
         &:last-child {
             border-bottom: none;
@@ -220,6 +229,7 @@ methods: {
             height: 0px;
             overflow: hidden;
             border-bottom: none;
+            display: none;
         }
 
         &:hover, &:focus {
@@ -232,13 +242,22 @@ methods: {
                 background-image: url('~assets/img-film-link.svg');
                 width: 24px;
                 height: 24px;
+                align-self: center;
             }
         }
 
+        &-img {
+            grid-area: image;
+            height: auto;
+            width: 60px;
+            // background-image: url('~assets/img-nopic.png');
+        }
+
         &-lnk {
+            grid-area: name;
             height: 100%;
             width: 100%;
-            padding: 16px 64px;
+            ///padding: 16px 64px;
             display: flex;
             align-items: center;
             &--mp {
@@ -281,13 +300,14 @@ methods: {
     }
 
     &__songs {
+        grid-area: songs;
         font-family: 'Roboto Condensed', sans-serif;
         font-style: normal;
         font-weight: normal;
         font-size: 16px;
         line-height: 24px;
         color:#828C91;
-        padding: 0 64px 8px 64px;
+        /// padding: 0 64px 8px 64px;
         width: 100%;
         &-itm {
             color: #051923;
@@ -320,6 +340,7 @@ methods: {
         margin-top: 0;
     }
     &__list-itm {
+        padding: 10px 40px 10px 0px;
         &:hover, &:focus {
             &:before {
                 right: 8px;
@@ -327,9 +348,10 @@ methods: {
             }
         }
         &-lnk {
-            padding: 16px 40px 16px 40px;
+            // padding: 16px 40px 16px 40px;
             &--mp {
-               padding: 16px 40px 0px 40px; 
+            //    padding: 16px 40px 0px 40px;
+            padding-bottom: 2px;
             }
         }
     }
@@ -352,7 +374,7 @@ methods: {
         }
     }
      &__songs {
-         padding: 0 40px 8px 40px;
+        //  padding: 0 40px 8px 40px;
      }
      &__episodes {
          padding: 0 40px 8px 40px;
